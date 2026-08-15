@@ -81,14 +81,4 @@ export const projects: Project[] = [
     tech: ['Python', 'Django', 'React', 'JavaScript', 'Vite', 'HTML', 'CSS'],
     links: [{ label: 'Ver código', href: 'https://github.com/lucassbertol/watchLOG' }],
   },
-  {
-    id: 'unimkt',
-    index: '04',
-    title: 'UniMKT',
-    tagline: 'Um marketplace pensado para o ambiente universitário.',
-    description:
-      'Marketplace universitário autoral desenvolvido em PHP e MySQL, com autenticação de usuários e anúncios.',
-    tech: ['PHP', 'MySQL', 'Desenvolvimento web', 'Autenticação', 'Anúncios'],
-    links: [{ label: 'Visitar projeto', href: 'https://unimkt.shop' }],
-  },
 ];
