@@ -16,6 +16,7 @@ export const site = {
 export const nav = [
   { label: 'Sobre', href: '#sobre' },
   { label: 'Habilidades', href: '#habilidades' },
+  { label: 'Estudando', href: '#estudando' },
   { label: 'Projetos', href: '#projetos' },
 ];
 
@@ -26,6 +27,17 @@ export const techGroups = [
   { label: 'Infraestrutura', items: ['Linux', 'Ubuntu Server', 'Proxmox'] },
   { label: 'Ferramentas', items: ['Git', 'GitHub', 'VS Code'] },
   { label: 'Metodologias', items: ['Scrum', 'Kanban'] },
+];
+
+export const studying = [
+  {
+    title: 'Inteligência Artificial',
+    items: ['IA', 'LLMs', 'RAG'],
+  },
+  {
+    title: 'Qualidade de Software',
+    items: ['Testes automatizados'],
+  },
 ];
 
 export type Project = {
@@ -57,28 +69,8 @@ export const projects: Project[] = [
     title: 'UniMKT',
     tagline: 'Um marketplace pensado para o ambiente universitário.',
     description:
-      'Marketplace universitário autoral desenvolvido em PHP e MySQL, com autenticação de usuários e anúncios.',
-    tech: ['PHP', 'MySQL', 'Desenvolvimento web', 'Autenticação', 'Anúncios'],
+      'Marketplace universitário autoral desenvolvido em PHP e MySQL, com autenticação de usuários, anúncios entre outras funcionalidades.',
+    tech: ['PHP', 'MySQL', 'Desenvolvimento web', 'Autenticação'],
     links: [{ label: 'Visitar projeto', href: 'https://unimkt.shop' }],
-  },
-  {
-    id: 'interscore',
-    index: '03',
-    title: 'interScore',
-    tagline: 'Dados de partidas e elenco do Sport Club Internacional.',
-    description:
-      'Aplicação web para consultar informações do Internacional: resultados, próximos jogos e elenco. Backend em Haskell com o framework Scotty, consumindo dados da API Football-Data.org.',
-    tech: ['Haskell', 'Scotty', 'JavaScript', 'HTML', 'API', 'Dados de futebol'],
-    links: [{ label: 'Ver código', href: 'https://github.com/lucassbertol/interScore' }],
-  },
-  {
-    id: 'watchlog',
-    index: '04',
-    title: 'watchLOG',
-    tagline: 'Backlog pessoal para acompanhar e avaliar séries.',
-    description:
-      'Aplicação web para gerenciar séries: backlog do que assistir, avaliação das concluídas e recomendações personalizadas. Backend em Python com Django e frontend em React.',
-    tech: ['Python', 'Django', 'React', 'JavaScript', 'Vite', 'HTML', 'CSS'],
-    links: [{ label: 'Ver código', href: 'https://github.com/lucassbertol/watchLOG' }],
   },
 ];

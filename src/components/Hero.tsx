@@ -4,12 +4,16 @@ export function Hero() {
   return (
     <section id="sobre" className="hero" aria-label="Sobre">
       <div className="container">
+        <p className="section-kicker">desenvolvedor fullstack</p>
         <p className="hero-eyebrow">Sistemas de Informação · UFSM</p>
-        <h1 className="hero-title">
-          Lucas
-          <br />
-          Bertol<span className="accent-dot">.</span>
-        </h1>
+        <div className="hero-name-row">
+          <h1 className="hero-title">
+            Lucas
+            <br />
+            Bertol<span className="accent-dot">.</span>
+          </h1>
+          <img src="/minhafoto.jpeg" alt="Lucas Bertol" className="hero-avatar" />
+        </div>
         <p className="hero-tagline">{site.tagline}</p>
         <p className="hero-text">
           Estudante do 5º semestre de Sistemas de Informação na UFSM, com previsão de formar em
