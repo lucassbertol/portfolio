@@ -12,7 +12,7 @@ export function Hero() {
             <br />
             Bertol<span className="accent-dot">.</span>
           </h1>
-          <img src="/minhafoto.jpeg" alt="Lucas Bertol" className="hero-avatar" />
+          <img src={`${import.meta.env.BASE_URL}minhafoto.jpeg`} alt="Lucas Bertol" className="hero-avatar" />
         </div>
         <p className="hero-tagline">{site.tagline}</p>
         <p className="hero-text">
