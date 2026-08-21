@@ -7,6 +7,7 @@ export const site = {
   semester: '5º semestre',
   graduation: '2028/1',
   email: 'pro.lucas.bertol@gmail.com',
+  whatsapp: 'https://wa.me/5555999077935',
   github: 'https://github.com/lucassbertol',
   linkedin: 'https://www.linkedin.com/in/lucas-bertol-85410934a/',
   unimkt: 'https://unimkt.shop',
@@ -16,8 +17,8 @@ export const site = {
 export const nav = [
   { label: 'Sobre', href: '#sobre' },
   { label: 'Habilidades', href: '#habilidades' },
-  { label: 'Estudando', href: '#estudando' },
   { label: 'Projetos', href: '#projetos' },
+  { label: 'Contato', href: '#contato' },
 ];
 
 export const techGroups = [
@@ -27,17 +28,6 @@ export const techGroups = [
   { label: 'Infraestrutura', items: ['Linux', 'Ubuntu Server', 'Proxmox'] },
   { label: 'Ferramentas', items: ['Git', 'GitHub', 'VS Code'] },
   { label: 'Metodologias', items: ['Scrum', 'Kanban'] },
-];
-
-export const studying = [
-  {
-    title: 'Inteligência Artificial',
-    items: ['IA', 'LLMs', 'RAG'],
-  },
-  {
-    title: 'Qualidade de Software',
-    items: ['Testes automatizados'],
-  },
 ];
 
 export type Project = {

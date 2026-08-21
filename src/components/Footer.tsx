@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { site } from '../config/site';
+import { GithubIcon, LinkedinIcon } from './icons';
 
 export function Footer() {
   const [copied, setCopied] = useState(false);
@@ -32,10 +33,10 @@ export function Footer() {
           </button>
           <div className="footer-links">
             <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
-              LinkedIn
+              <LinkedinIcon size={14} /> LinkedIn
             </a>
             <a href={site.github} target="_blank" rel="noopener noreferrer">
-              GitHub
+              <GithubIcon size={14} /> GitHub
             </a>
           </div>
         </div>
