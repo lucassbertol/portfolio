@@ -1,8 +1,10 @@
 import { useRef } from 'react';
 import { site } from '../config/site';
+import { useLang } from '../i18n/LangContext';
 import { GithubIcon, LinkedinIcon, MailIcon } from './icons';
 
 export function Hero() {
+  const { t } = useLang();
   const fxRef = useRef<HTMLDivElement>(null);
   const frame = useRef(0);
 
@@ -20,11 +22,11 @@ export function Hero() {
   };
 
   return (
-    <section id="sobre" className="hero" aria-label="Sobre" onMouseMove={onMouseMove}>
+    <section id="sobre" className="hero" aria-label={t.hero.sectionAria} onMouseMove={onMouseMove}>
       <div className="hero-fx" ref={fxRef} aria-hidden="true" />
       <div className="container">
-        <p className="section-kicker">desenvolvedor fullstack</p>
-        <p className="hero-eyebrow">Sistemas de Informação · UFSM</p>
+        <p className="section-kicker">{t.hero.kicker}</p>
+        <p className="hero-eyebrow">{t.hero.eyebrow}</p>
         <div className="hero-name-row">
           <h1 className="hero-title">
             Lucas
@@ -40,11 +42,8 @@ export function Hero() {
             />
           </div>
         </div>
-        <p className="hero-tagline">{site.tagline}</p>
-        <p className="hero-text">
-          Desenvolvo soluções para gerar retorno: automações de processos e build sob medida
-          para empresas que querem progredir.
-        </p>
+        <p className="hero-tagline">{t.hero.tagline}</p>
+        <p className="hero-text">{t.hero.text}</p>
         <div className="hero-actions">
           <a href={site.github} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
             <GithubIcon /> GitHub

@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { site } from '../config/site';
+import { useLang } from '../i18n/LangContext';
 import { GithubIcon, LinkedinIcon } from './icons';
 
 export function Footer() {
+  const { t } = useLang();
   const [copied, setCopied] = useState(false);
   const year = new Date().getFullYear();
 
@@ -29,7 +31,7 @@ export function Footer() {
         <div className="footer-contact">
           <button type="button" className="footer-email" onClick={copyEmail} aria-live="polite">
             <span>{site.email}</span>
-            <span className="contact-copy-label">{copied ? 'copiado!' : 'copiar'}</span>
+            <span className="contact-copy-label">{copied ? t.footer.copied : t.footer.copy}</span>
           </button>
           <div className="footer-links">
             <a href={site.linkedin} target="_blank" rel="noopener noreferrer">

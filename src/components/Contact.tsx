@@ -1,23 +1,26 @@
 import type { CSSProperties } from 'react';
 import { site } from '../config/site';
+import { useLang } from '../i18n/LangContext';
 import { GithubIcon, LinkedinIcon, WhatsappIcon } from './icons';
 
 export function Contact() {
+  const { t } = useLang();
+
   return (
     <section id="contato" className="section contact">
       <div className="container">
         <div data-reveal>
-          <p className="section-kicker">/contato</p>
+          <p className="section-kicker">{t.contact.kicker}</p>
           <h2 className="contact-title">
-            Vamos construir
+            {t.contact.titleA}
             <br />
-            algo juntos<span className="accent-dot">.</span>
+            {t.contact.titleB}
+            <span className="accent-dot">.</span>
           </h2>
         </div>
 
         <p className="contact-text" data-reveal style={{ '--reveal-delay': '0.1s' } as CSSProperties}>
-          Tem um projeto em mente, uma vaga ou só quer trocar ideia?
-          Meu inbox está sempre aberto.
+          {t.contact.text}
         </p>
 
         <div

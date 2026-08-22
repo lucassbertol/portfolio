@@ -341,6 +341,43 @@ section[id] {
   color: var(--text);
 }
 
+@media (max-width: 600px) {
+  .navbar-inner {
+    gap: 10px;
+  }
+
+  .navbar-links {
+    gap: clamp(8px, 2.5vw, 14px);
+  }
+
+  .lang-toggle {
+    padding: 5px 7px;
+    font-size: 10px;
+  }
+}
+
+/* ---------- language toggle ---------- */
+
+.lang-toggle {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line-strong);
+  padding: 6px 10px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.lang-toggle:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
 /* ---------- hero ---------- */
 
 .hero {
@@ -515,7 +552,9 @@ section[id] {
 }
 
 .tech-tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--text-2);
@@ -526,9 +565,31 @@ section[id] {
     border-color 0.2s ease;
 }
 
+.tech-tag svg {
+  flex-shrink: 0;
+  display: block;
+}
+
 .tech-tag:hover {
   color: var(--text);
   border-color: var(--accent);
+}
+
+/* grupo em destaque — Stack Base */
+
+.stack-group--featured {
+  grid-column: 1 / -1;
+  width: fit-content;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  background: linear-gradient(90deg, rgba(229, 72, 77, 0.07), transparent 65%);
+  padding: clamp(22px, 3vw, 32px) clamp(20px, 3vw, 28px);
+}
+
+.stack-group--featured .tech-tag {
+  font-size: 13px;
+  padding: 9px 14px;
+  gap: 8px;
 }
 
 @media (max-width: 900px) {

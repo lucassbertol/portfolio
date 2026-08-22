@@ -1,6 +1,5 @@
 export const site = {
   name: 'Lucas Bertol',
-  tagline: 'Construindo software para resolver problemas reais.',
   degree: 'Sistemas de Informação',
   universityFull: 'Sistemas de Informação — UFSM',
   location: 'Santa Maria, RS',
@@ -10,35 +9,45 @@ export const site = {
   whatsapp: 'https://wa.me/5555999077935',
   github: 'https://github.com/lucassbertol',
   linkedin: 'https://www.linkedin.com/in/lucas-bertol-85410934a/',
-  unimkt: 'https://unimkt.shop',
-  netcommander: 'https://github.com/ehodiogo/NetCommander',
 };
 
-export const nav = [
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Habilidades', href: '#habilidades' },
-  { label: 'Projetos', href: '#projetos' },
-  { label: 'Contato', href: '#contato' },
+export type TechGroupId =
+  | 'base'
+  | 'languages'
+  | 'web'
+  | 'db'
+  | 'infra'
+  | 'tools'
+  | 'methods';
+
+export type TechGroup = {
+  id: TechGroupId;
+  featured?: boolean;
+  items: string[];
+};
+
+export const techGroups: TechGroup[] = [
+  {
+    id: 'base',
+    featured: true,
+    items: ['Python', 'PHP', 'Django', 'React', 'Next.js', 'JavaScript', 'TypeScript', 'Docker'],
+  },
+  { id: 'languages', items: ['Python', 'PHP', 'JavaScript', 'C', 'Java', 'Haskell'] },
+  { id: 'web', items: ['HTML', 'CSS', 'Django', 'Node.js'] },
+  { id: 'db', items: ['MySQL', 'SQL'] },
+  { id: 'infra', items: ['Linux', 'Ubuntu Server', 'Proxmox'] },
+  { id: 'tools', items: ['Git', 'GitHub', 'VS Code'] },
+  { id: 'methods', items: ['Scrum', 'Kanban'] },
 ];
 
-export const techGroups = [
-  { label: 'Linguagens', items: ['Python', 'PHP', 'JavaScript', 'C', 'Java', 'Haskell'] },
-  { label: 'Web', items: ['HTML', 'CSS', 'Django', 'Node.js'] },
-  { label: 'Banco', items: ['MySQL', 'SQL'] },
-  { label: 'Infraestrutura', items: ['Linux', 'Ubuntu Server', 'Proxmox'] },
-  { label: 'Ferramentas', items: ['Git', 'GitHub', 'VS Code'] },
-  { label: 'Metodologias', items: ['Scrum', 'Kanban'] },
-];
+export type ProjectId = 'netcommander' | 'unimkt';
 
 export type Project = {
-  id: string;
+  id: ProjectId;
   index: string;
   title: string;
-  tagline: string;
-  description: string;
   tech: string[];
-  badge?: string;
-  links?: { label: string; href: string }[];
+  link?: string;
 };
 
 export const projects: Project[] = [
@@ -46,21 +55,14 @@ export const projects: Project[] = [
     id: 'netcommander',
     index: '01',
     title: 'NetCommander',
-    tagline: 'Controle remoto de laboratórios a partir de uma única máquina.',
-    description:
-      'Sistema desenvolvido para o NCC que controla de forma remota e simultânea os computadores dos laboratórios do CT-UFSM. Apresentado na JAI 2026.',
     tech: ['Python', 'Automação', 'Redes', 'Controle remoto', 'Linux'],
-    badge: 'Apresentado na JAI 2026',
-    links: [{ label: 'Ver código', href: 'https://github.com/ehodiogo/NetCommander' }],
+    link: 'https://github.com/ehodiogo/NetCommander',
   },
   {
     id: 'unimkt',
     index: '02',
     title: 'UniMKT',
-    tagline: 'Um marketplace pensado para o ambiente universitário.',
-    description:
-      'Marketplace universitário autoral desenvolvido em PHP e MySQL, com autenticação de usuários, anúncios entre outras funcionalidades.',
     tech: ['PHP', 'MySQL', 'Desenvolvimento web', 'Autenticação'],
-    links: [{ label: 'Visitar projeto', href: 'https://unimkt.shop' }],
+    link: 'https://unimkt.shop',
   },
 ];

@@ -1,3 +1,26 @@
+import type { SimpleIcon } from 'simple-icons';
+import {
+  siCss,
+  siC,
+  siDjango,
+  siDocker,
+  siGit,
+  siGithub,
+  siHaskell,
+  siHtml5,
+  siJavascript,
+  siLinux,
+  siMysql,
+  siNextdotjs,
+  siNodedotjs,
+  siPhp,
+  siProxmox,
+  siPython,
+  siReact,
+  siTypescript,
+  siUbuntu,
+} from 'simple-icons';
+
 type IconProps = {
   size?: number;
 };
@@ -41,6 +64,44 @@ export function MailIcon({ size = 16 }: IconProps) {
     >
       <rect x="2" y="4" width="20" height="16" rx="2" />
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  );
+}
+
+export const techIcons: Record<string, SimpleIcon> = {
+  Python: siPython,
+  PHP: siPhp,
+  Django: siDjango,
+  React: siReact,
+  'Next.js': siNextdotjs,
+  JavaScript: siJavascript,
+  TypeScript: siTypescript,
+  Docker: siDocker,
+  C: siC,
+  Haskell: siHaskell,
+  HTML: siHtml5,
+  CSS: siCss,
+  'Node.js': siNodedotjs,
+  MySQL: siMysql,
+  Linux: siLinux,
+  'Ubuntu Server': siUbuntu,
+  Proxmox: siProxmox,
+  Git: siGit,
+  GitHub: siGithub,
+};
+
+type TechIconProps = {
+  icon: SimpleIcon;
+  size?: number;
+};
+
+export function TechIcon({ icon, size = 14 }: TechIconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d={icon.path}
+        fill={icon.hex === '000000' ? 'currentColor' : `#${icon.hex}`}
+      />
     </svg>
   );
 }

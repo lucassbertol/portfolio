@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { nav } from '../config/site';
+import { useLang } from '../i18n/LangContext';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 
 export function Navbar() {
+  const { lang, setLang, t } = useLang();
   const [scrolled, setScrolled] = useState(false);
-  const ids = useMemo(() => nav.map((item) => item.href.slice(1)), []);
+  const ids = useMemo(() => t.nav.items.map((item) => item.href.slice(1)), [t]);
   const active = useScrollSpy(ids);
 
   useEffect(() => {
@@ -17,12 +18,12 @@ export function Navbar() {
   return (
     <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="navbar-inner">
-        <a href="#sobre" className="navbar-logo" aria-label="Lucas Bertol — início">
+        <a href="#sobre" className="navbar-logo" aria-label={t.nav.logoAria}>
           LB<span className="accent-dot">.</span>
         </a>
 
-        <nav className="navbar-links" aria-label="Navegação principal">
-          {nav.map((item) => (
+        <nav className="navbar-links" aria-label={t.nav.ariaLabel}>
+          {t.nav.items.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -33,6 +34,15 @@ export function Navbar() {
             </a>
           ))}
         </nav>
+
+        <button
+          type="button"
+          className="lang-toggle"
+          aria-label={t.nav.langGroupAria}
+          onClick={() => setLang(lang === 'pt' ? 'en' : 'pt')}
+        >
+          {lang === 'pt' ? 'PT' : 'EN'}
+        </button>
       </div>
     </header>
   );
