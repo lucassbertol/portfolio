@@ -15,11 +15,17 @@ const pt = {
     ],
   },
   hero: {
-    kicker: 'desenvolvedor fullstack',
-    eyebrow: 'Sistemas de Informação · UFSM',
     tagline: 'Construindo software para resolver problemas reais.',
     text: 'Desenvolvo soluções para gerar retorno: automações de processos e build sob medida para empresas que querem progredir.',
     sectionAria: 'Sobre',
+    terminal: {
+      title: 'lucas@ufsm: ~',
+      lines: [
+        { cmd: 'whoami', out: 'estudante do 5º semestre\nde Sistemas de Informação' },
+        { cmd: 'cat universidade.txt', out: 'UFSM' },
+        { cmd: 'foco', out: 'fullstack · SaaS · automação' },
+      ],
+    },
   },
   skills: {
     kicker: '/atuacao',
@@ -48,7 +54,7 @@ const pt = {
       unimkt: {
         tagline: 'Um marketplace pensado para o ambiente universitário.',
         description:
-          'Marketplace universitário construído do zero em PHP e MySQL: modelagem do banco, sistema de autenticação de usuários, publicação e gestão de anúncios. No ar em unimkt.shop.',
+          'Marketplace universitário construído do zero em PHP e banco de dados em MySQL: modelagem do banco, sistema de autenticação de usuários, publicação e gestão de anúncios. No ar em unimkt.shop.',
         cta: 'Visitar projeto',
       },
     } as Record<ProjectId, { tagline: string; description: string; badge?: string; cta: string }>,
@@ -78,11 +84,17 @@ const en: typeof pt = {
     ],
   },
   hero: {
-    kicker: 'fullstack developer',
-    eyebrow: 'Information Systems · UFSM',
     tagline: 'Building software to solve real problems.',
     text: "I build solutions that generate results: process automation and custom-built systems for companies that want to move forward.",
     sectionAria: 'About',
+    terminal: {
+      title: 'lucas@ufsm: ~',
+      lines: [
+        { cmd: 'whoami', out: '5th semester Information\nSystems student' },
+        { cmd: 'cat universidade.txt', out: 'UFSM' },
+        { cmd: 'foco', out: 'fullstack · SaaS · automation' },
+      ],
+    },
   },
   skills: {
     kicker: '/expertise',
