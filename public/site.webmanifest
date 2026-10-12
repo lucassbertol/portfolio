@@ -1,0 +1,16 @@
+{
+  "name": "Lucas Salvini Bertol - Desenvolvedor Fullstack",
+  "short_name": "Lucas Bertol",
+  "description": "Portfólio profissional de Lucas Salvini Bertol, Desenvolvedor Fullstack",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#171717",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

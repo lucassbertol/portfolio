@@ -1,0 +1,65 @@
+---
+import { portfolioData } from '@/data/portfolio';
+import Icon from './Icon.astro'; const { socialLinks } = portfolioData;
+--- <nav class="container-custom" aria-label="Navegação principal"> <div class="flex items-center justify-between h-16 lg:h-20"> <!-- Logo / Name --> <div class="flex items-center gap-3"> <a href="#inicio" class="text-clamp-lg font-semibold text-neutral-900 dark:text-neutral-50 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-950 rounded-md px-2 py-1 -mx-2 -my-1" aria-label="Ir para o início - Lucas Bertol" > <span class="gradient-text">Lucas Bertol</span> </a> <span class="hidden sm:inline-flex items-center px-2 py-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 rounded-full border border-neutral-200 dark:border-neutral-700"> Desenvolvedor Fullstack </span> </div> <!-- Desktop Navigation --> <div class="hidden lg:flex items-center gap-8"> <a href="#sobre" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Sobre </a> <a href="#habilidades" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Habilidades </a> <a href="#experiencia" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Experiência </a> <a href="#projetos" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Projetos </a> <a href="#contato" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Contato </a> </div> <!-- Right side: Theme toggle + Social links + Mobile menu button --> <div class="flex items-center gap-4"> <!-- Social Links (Desktop) --> <div class="hidden md:flex items-center gap-2"> {socialLinks.slice(0, 2).map((social) => ( <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.ariaLabel} class="p-2 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50" > <Icon name={social.icon} class="w-5 h-5" /> </a> ))} </div> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" type="button" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="mobile-menu" class="lg:hidden p-2 rounded-lg text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50" > <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"> <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /> </svg> </button> </div> </div> <!-- Mobile Menu --> <div id="mobile-menu" class="lg:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-out glass border-t border-neutral-900/[0.06] dark:border-neutral-50/[0.08]" role="navigation" aria-label="Menu mobile" > <div class="container-custom py-6 space-y-4"> <nav class="flex flex-col space-y-2"> <a href="#sobre" class="mobile-nav-link">Sobre</a> <a href="#habilidades" class="mobile-nav-link">Habilidades</a> <a href="#experiencia" class="mobile-nav-link">Experiência</a> <a href="#projetos" class="mobile-nav-link">Projetos</a> <a href="#contato" class="mobile-nav-link">Contato</a> </nav> <div class="divider my-4" /> <div class="flex items-center gap-4"> {socialLinks.map((social) => ( <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.ariaLabel} class="p-2 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800" > <Icon name={social.icon} class="w-5 h-5" /> </a> ))} </div> </div> </div>
+</nav> <script is:inline>
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const ICON_OPEN = '<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>';
+  const ICON_CLOSED = '<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>';
+  function toggleMobileMenu() {
+    const isOpen = mobileMenuBtn && mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+    if (mobileMenuBtn) {
+      mobileMenuBtn.setAttribute('aria-expanded', String(!isOpen));
+    }
+    if (!isOpen) {
+      if (mobileMenu) {
+        mobileMenu.classList.remove('max-h-0', 'opacity-0');
+        mobileMenu.classList.add('max-h-96', 'opacity-100');
+      }
+      if (mobileMenuBtn) {
+        mobileMenuBtn.innerHTML = ICON_OPEN;
+      }
+    } else {
+      if (mobileMenu) {
+        mobileMenu.classList.add('max-h-0', 'opacity-0');
+        mobileMenu.classList.remove('max-h-96', 'opacity-100');
+      }
+      if (mobileMenuBtn) {
+        mobileMenuBtn.innerHTML = ICON_CLOSED;
+      }
+    }
+  }
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+  }
+  document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+    link.addEventListener('click', function() {
+      if (mobileMenuBtn && mobileMenuBtn.getAttribute('aria-expanded') === 'true') {
+        toggleMobileMenu();
+      }
+    });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && mobileMenuBtn && mobileMenuBtn.getAttribute('aria-expanded') === 'true') {
+      toggleMobileMenu();
+    }
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      const targetId = anchor.getAttribute('href');
+      if (!targetId || targetId === '#') {
+        return;
+      }
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        const headerEl = document.querySelector('header');
+        const headerHeight = headerEl ? headerEl.offsetHeight : 0;
+        const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+      }
+    });
+  });
+</script> <style> .mobile-nav-link { @apply px-4 py-3 text-base font-medium text-neutral-600 dark:text-neutral-400; @apply hover:text-neutral-900 dark:hover:text-neutral-50; @apply rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800; @apply transition-colors duration-200; @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50; }
+</style>
