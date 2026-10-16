@@ -40,7 +40,7 @@ export const portfolioData = {
   website: 'https://lucasbertol.dev.br',
   linkedin: 'https://www.linkedin.com/in/lucas-bertol-85410934a',
   github: 'https://github.com/lucassbertol',
-  bio: `Busco atuar nas áreas de desenvolvimento de software, testes de software ou análise de dados. Possuo experiência prática em desenvolvimento com Python, PHP e Javascript, com raciocínio lógico e atenção a detalhes aplicados na especificação e validação das funcionalidades que construí, além de vivência em ambiente de pesquisa e extensão universitária. Busco uma oportunidade para aplicar e expandir meus conhecimentos técnicos, integrar times ágeis e evoluir profissionalmente.`,
+  bio: `Busco atuar nas áreas de desenvolvimento de software, testes de software (QA) ou análise de dados. Possuo experiência prática em desenvolvimento com com raciocínio lógico e atenção a detalhes aplicados na especificação e validação das funcionalidades que construo, além de vivência em ambiente de pesquisa e universitária como bolsista de ensino.`,
 
   skills: [
     {
@@ -113,7 +113,7 @@ export const portfolioData = {
       period: '08/2025',
       description: 'Sistema de gerenciamento remoto de laboratórios de informática para o NCC-UFSM.',
       longDescription: 'Aplicação desktop em Python para controle simultâneo de ~80 computadores em 3 laboratórios e 1 sala de estudos. Permite execução de comandos remotos, monitoramento de status em tempo real, distribuição de arquivos e atualizações de software.',
-      technologies: ['Python', 'Django', 'Pytest', 'SQL', 'HTML', 'CSS', 'React'],
+      technologies: ['Python', 'Django', 'Pytest', 'SQL', 'HTML', 'CSS', 'React', 'Linux', 'Windows', 'SSH'],
       highlights: [
         'Arquitetura cliente-servidor com comunicação via sockets TCP',
         'Gerenciamento concorrente de 80+ conexões simultâneas',

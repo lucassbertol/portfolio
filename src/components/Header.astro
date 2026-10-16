@@ -42,7 +42,7 @@ const { email } = portfolioData;
 <!-- Overlay: índice gigante numerado -->
 <div id="index-overlay" class="fixed inset-0 z-[105]" role="dialog" aria-modal="true" aria-label="Índice do portfólio">
   <div class="absolute inset-0 bg-neutral-950/60 backdrop-blur-sm" data-close-index aria-hidden="true"></div>
-  <div class="index-panel absolute inset-x-0 top-0 bg-neutral-50 dark:bg-neutral-950 border-b border-neutral-900/10 dark:border-neutral-50/10">
+  <div class="index-panel absolute inset-x-0 top-0 max-h-svh overflow-y-auto overscroll-contain bg-neutral-50 dark:bg-neutral-950 border-b border-neutral-900/10 dark:border-neutral-50/10">
     <div class="wrap py-8 sm:py-12">
       <div class="flex items-center justify-between mb-8">
         <p class="mono-label">Índice — 06 seções</p>
@@ -59,11 +59,11 @@ const { email } = portfolioData;
             { n: '06', href: '#contato', t: 'Contato', d: 'Email e mensagem' },
           ].map((item) => (
             <li>
-              <a href={item.href} data-close-index class="group grid grid-cols-[3.2rem_1fr_auto] sm:grid-cols-[5rem_1fr_1fr_auto] items-center gap-3 sm:gap-6 py-4 sm:py-5 hover:pl-2 transition-all duration-300">
+              <a href={item.href} data-close-index class="group grid grid-cols-[3.2rem_1fr_auto] sm:grid-cols-[5rem_1fr_1fr_auto] items-center gap-3 sm:gap-6 py-4 sm:py-5 hover:translate-x-1 transition-transform duration-300">
                 <span class="font-mono text-xs font-bold text-neutral-400 dark:text-neutral-500">{item.n}</span>
                 <span class="font-display font-extrabold uppercase tracking-[-0.02em] leading-none text-2xl sm:text-4xl">{item.t}</span>
                 <span class="hidden sm:block font-mono text-[0.7rem] uppercase tracking-[0.14em] text-neutral-500 dark:text-neutral-400">{item.d}</span>
-                <Icon name="arrow-right" class="w-5 h-5 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all" />
+                <Icon name="arrow-right" class="w-5 h-5 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-[transform,opacity] duration-300" />
               </a>
             </li>
           ))}

@@ -22,6 +22,8 @@ export const stackIcons: Record<string, string> = {
   'Docker': `${CDN}/docker/docker-original.svg`,
   'GitHub Actions': `${CDN}/githubactions/githubactions-plain.svg`,
   'Linux': `${CDN}/linux/linux-original.svg`,
+  'Windows': `${CDN}/windows8/windows8-original.svg`,
+  'SSH': `${CDN}/ssh/ssh-original.svg`,
   'VS Code': `${CDN}/vscode/vscode-original.svg`,
   'Pytest': `${CDN}/pytest/pytest-original.svg`,
   'Pandas': `${CDN}/pandas/pandas-original.svg`,

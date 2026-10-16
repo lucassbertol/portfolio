@@ -47,6 +47,7 @@
   }
 
   html {
+    color-scheme: dark;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -56,6 +57,9 @@
     @apply bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50;
     @apply font-sans antialiased;
     overflow-x: hidden;
+    overflow-x: clip;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   ::selection {
@@ -86,7 +90,6 @@
       transition-duration: 0.01ms !important;
     }
     [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
-    .marquee-track { animation: none !important; }
     #cursor-dot, #cursor-ring { display: none !important; }
   }
 }
@@ -119,6 +122,7 @@
     line-height: 0.95;
     text-transform: uppercase;
     font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+    text-wrap: balance;
   }
 
   .display-section {
@@ -128,6 +132,7 @@
     line-height: 1;
     text-transform: uppercase;
     font-size: clamp(1.9rem, 4.5vw, 3.4rem);
+    text-wrap: balance;
   }
 
   .serif-accent {
@@ -190,10 +195,18 @@
   .input {
     @apply w-full px-4 py-3.5 rounded-xl bg-transparent text-neutral-900 dark:text-neutral-50 placeholder-neutral-400 dark:placeholder-neutral-500;
     @apply border border-neutral-900/20 dark:border-neutral-50/20;
-    @apply focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-100 focus:border-transparent transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-100 focus:border-transparent transition duration-200;
   }
   .label {
     @apply block font-mono text-[0.7rem] font-medium uppercase tracking-[0.18em] text-neutral-500 dark:text-neutral-400 mb-2;
+  }
+
+  /* Select nativo: cores explícitas (dropdown legível no dark mode do Windows) */
+  select.input {
+    @apply bg-white dark:bg-neutral-900;
+  }
+  select.input option {
+    @apply bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-50;
   }
 
   /* Blueprint grid — só neutros */
@@ -229,20 +242,6 @@
 @layer utilities {
   .text-balance { text-wrap: balance; }
 
-  .marquee {
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .marquee-track {
-    display: inline-flex;
-    align-items: center;
-    gap: 2.5rem;
-    padding-right: 2.5rem;
-    animation: marquee 28s linear infinite;
-    will-change: transform;
-  }
-  .marquee:hover .marquee-track { animation-play-state: paused; }
-
   /* Reveal ao rolar: fade + translateY leve, dispara uma única vez.
      Distância e teto de duração vêm do bloco Motion config no :root. */
   [data-reveal] {
@@ -251,13 +250,21 @@
     clip-path: inset(0 0 12% 0);
     transition: opacity var(--duration-slow) var(--ease-out-expo), transform var(--duration-slow) var(--ease-out-expo), clip-path var(--duration-slow) var(--ease-out-expo);
     transition-delay: var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
   }
   [data-reveal="wipe"] { transform: translateY(0) scale(0.985); clip-path: inset(0 0 100% 0); }
   [data-reveal="lateral"] { transform: translateX(calc(var(--motion-distance) * -1)); clip-path: none; }
   [data-reveal="lateral-r"] { transform: translateX(var(--motion-distance)); clip-path: none; }
   [data-reveal="fade"] { transform: none; clip-path: none; }
   [data-reveal].is-visible { opacity: 1; transform: none; clip-path: inset(0 0 0% 0); }
+
+  /* Mobile/pointer grosseiro: reveal só com opacity + translate.
+     O clip-path anima no tier de paint e, sobre cards grandes com
+     backdrop-blur, força repaint por frame em GPU móvel fraca —
+     o navegador descarta frames e o bloco "aparece duro de uma vez". */
+  @media (max-width: 768px), (pointer: coarse) {
+    [data-reveal],
+    [data-reveal].is-visible { clip-path: none; }
+  }
 
   .grain::after {
     content: '';
@@ -289,6 +296,20 @@
   }
 
   .toast-show { animation: toast-in 380ms var(--ease-out-expo); }
+  /* Toast sai pela mesma borda que entrou (simetria espacial) */
+  #toast.is-leaving {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+    transition: opacity var(--duration-fast) var(--ease-out-expo), transform var(--duration-fast) var(--ease-out-expo);
+  }
+
+  /* Submit com estado de sucesso (indicação de estado, não só toast) */
+  #submit-btn.is-success {
+    background-color: transparent;
+    color: inherit;
+    box-shadow: inset 0 0 0 1.5px currentColor;
+    transition: background-color var(--duration-base) var(--ease-out-expo), color var(--duration-base) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo), transform var(--duration-fast) var(--ease-out-expo);
+  }
 
   /* Índice overlay: fade + deslize do painel, itens em stagger */
   #index-overlay {

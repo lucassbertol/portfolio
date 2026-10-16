@@ -5,25 +5,35 @@ const { education, certifications } = portfolioData;
 
 <section id="sobre" class="relative" aria-labelledby="about-title">
   <div class="wrap py-20 sm:py-24 lg:py-32">
+    <!-- Sub-cabeçalho fixo (mobile): elemento curto = fixação longa.
+         Some no desktop, onde o container da esquerda fixa como unidade. -->
+    <div class="lg:hidden sticky top-16 z-10 -mx-5 px-5 sm:-mx-8 sm:px-8 mb-8 -mt-2 py-3 bg-neutral-50/90 dark:bg-neutral-950/90 backdrop-blur-xl border-b border-neutral-900/10 dark:border-neutral-50/10" aria-hidden="true">
+      <p class="mono-label">02 — Sobre mim</p>
+    </div>
     <div class="grid lg:grid-cols-12 gap-8">
-      <div class="lg:col-span-4">
-        <div class="lg:sticky lg:top-28">
-          <p data-reveal class="mono-label mb-3">02 — Sobre</p>
-          <h2 id="about-title" data-reveal style="--reveal-delay:80ms" class="display-section">Sobre mim</h2>
-          <div class="rule my-6" aria-hidden="true"></div>
-          <p data-reveal style="--reveal-delay:140ms" class="mono-label">UFSM · Sistemas de Informação · até 07/2028</p>
+      <!-- Esquerda: título + apresentação fixos juntos enquanto a direita rola.
+           O container é sticky (top-24 mobile / top-28 desktop) e suas colunas
+           internas não precisam de sticky próprio. -->
+      <div class="lg:col-span-9 sticky top-24 lg:top-28">
+        <div class="grid lg:grid-cols-9 gap-8 content-start self-start">
+          <div class="lg:col-span-4">
+            <p data-reveal class="mono-label mb-3">02 — Sobre</p>
+            <h2 id="about-title" data-reveal style="--reveal-delay:80ms" class="display-section">Sobre mim</h2>
+            <div class="rule my-6" aria-hidden="true"></div>
+          </div>
+
+          <div class="lg:col-span-5 self-start">
+            <p data-reveal class="mono-label mb-4">Apresentação</p>
+            <div data-reveal style="--reveal-delay:100ms" class="space-y-5 text-[0.98rem] leading-[1.75] text-neutral-700 dark:text-neutral-300">
+              <p>Me chamo Lucas Salvini Bertol, tenho 20 anos, natural de Santa Maria - RS e estudo na UFSM. Já tive experiência prática com Python, PHP e JavaScript, com foco em lógica, atenção a detalhes importantes e validação das funcionalidades que desenvolvo com testes automatizados.</p>
+              <p>Atualmente atuo como bolsista no NCC, do centro de tecnologia da faculdade, implementando soluções e colaborando no sustento dos laboratórios de informática.</p>
+              <p>Procuro uma oportunidade para aplicar e expandir meus conhecimentos, colaborar com times ágeis e evoluir profissionalmente.</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="lg:col-span-5">
-        <p data-reveal class="mono-label mb-4">Apresentação</p>
-        <div data-reveal style="--reveal-delay:100ms" class="space-y-5 text-[0.98rem] leading-[1.75] text-neutral-700 dark:text-neutral-300">
-          <p>Busco atuar nas áreas de desenvolvimento de software, testes de software ou análise de dados. Tenho experiência prática com Python, PHP e JavaScript, com foco em lógica, atenção a detalhes e validação das funcionalidades que desenvolvo.</p>
-          <p>Tenho vivência em ambiente de pesquisa e extensão universitária, incluindo o desenvolvimento e a manutenção de um sistema para gerenciamento de cerca de 80 computadores em laboratórios do CT-UFSM.</p>
-          <p>Procuro uma oportunidade para aplicar e expandir meus conhecimentos, colaborar com times ágeis e evoluir profissionalmente.</p>
-        </div>
-      </div>
-
+      <!-- Direita: formação + certificações rolam normalmente -->
       <div class="lg:col-span-3">
         <div data-reveal="lateral-r" style="--reveal-delay:160ms" class="border border-neutral-900/15 dark:border-neutral-50/15 rounded-2xl bg-white/60 dark:bg-neutral-900/50 backdrop-blur overflow-hidden">
           <div class="px-6 pt-6 pb-4 border-b border-dashed border-neutral-900/20 dark:border-neutral-50/20">

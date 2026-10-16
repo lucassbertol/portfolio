@@ -1,5 +1,6 @@
 ---
 import { portfolioData } from '@/data/portfolio';
+import { stackIcons } from '@/data/stackIcons';
 import Icon from './Icon.astro';
 const { bio, socialLinks } = portfolioData;
 ---
@@ -28,9 +29,28 @@ const { bio, socialLinks } = portfolioData;
         </p>
         <div class="rule-dashed my-5 text-neutral-900 dark:text-neutral-50" aria-hidden="true"></div>
         <div class="flex flex-wrap gap-2 mt-auto">
-          {['Python', 'PHP', 'JavaScript', 'Testes', 'Dados'].map((t) => (
-            <span class="tag">{t}</span>
-          ))}
+          {['Python', 'PHP', 'JavaScript', 'QA', 'Testes', 'Dados'].map((t) => (
+          <span class="tag inline-flex items-center gap-1.5">
+            {stackIcons[t] ? (
+              <img
+                src={stackIcons[t]}
+                alt=""
+                aria-hidden="true"
+                width="16"
+                height="16"
+                loading="lazy"
+                decoding="async"
+                class="w-4 h-4 grayscale invert dark:invert-0 opacity-90"
+              />
+            ) : (
+              <Icon
+                name={t === 'QA' || t === 'Testes' ? 'test' : 'database'}
+                class="w-3 h-3 shrink-0 opacity-70"
+              />
+            )}
+            {t}
+          </span>
+        ))}
         </div>
       </div>
 
@@ -42,9 +62,9 @@ const { bio, socialLinks } = portfolioData;
           <div class="rule-dashed my-1 text-neutral-900 dark:text-neutral-50" aria-hidden="true"></div>
           <p class="mono-label">Redes e contato</p>
           <ul class="grid sm:grid-cols-2 gap-2">
-            {socialLinks.map((s) => (
-              <li>
-                <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.ariaLabel} title={s.name} class="flex items-center gap-2.5 rounded-xl border border-neutral-900/15 dark:border-neutral-50/15 px-3.5 py-2.5 text-sm font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-50 hover:bg-neutral-900 dark:hover:text-neutral-900 dark:hover:bg-neutral-50 hover:-translate-y-0.5 transition-all">
+            {socialLinks.map((s, si) => (
+              <li data-reveal="fade" style={`--reveal-delay:${si * 40}ms`}>
+                <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.ariaLabel} title={s.name} class="flex items-center gap-2.5 rounded-xl border border-neutral-900/15 dark:border-neutral-50/15 px-3.5 py-2.5 text-sm font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-50 hover:bg-neutral-900 dark:hover:text-neutral-900 dark:hover:bg-neutral-50 hover:-translate-y-0.5 transition-[transform,background-color,color,border-color]">
                   <Icon name={s.icon} class="w-4 h-4 shrink-0 opacity-70" />
                   {s.name}
                 </a>
