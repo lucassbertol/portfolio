@@ -1,54 +1,135 @@
 ---
 import { portfolioData } from '@/data/portfolio';
-import Icon from './Icon.astro'; const { email, website, socialLinks } = portfolioData;
---- <section id="contato" class="section relative bg-neutral-950" aria-labelledby="contact-title"> <div class="container-custom relative z-10"> <header class="max-w-3xl mx-auto mb-14 lg:mb-20 text-center"> <p data-reveal class="eyebrow mb-5">Contato</p> <h2 id="contact-title" data-reveal style="--reveal-delay: 80ms" class="section-title mb-4">Entre em Contato</h2> <p data-reveal style="--reveal-delay: 140ms" class="section-subtitle mx-auto">Estou sempre aberto a novas oportunidades e conversas. Vamos bater um papo?</p> </header> <div class="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto"> <!-- Contact Info --> <div class="space-y-8">  <article data-reveal class="card"> <h3 class="text-clamp-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-6 flex items-center gap-3"> <div class="w-12 h-12 rounded-2xl bg-neutral-900/[0.05] dark:bg-neutral-50/[0.07] border border-neutral-900/[0.06] dark:border-neutral-50/[0.08] flex items-center justify-center flex-shrink-0"> <Icon name="globe" class="w-5 h-5 text-neutral-900 dark:text-neutral-50" /> </div> Links Profissionais </h3> <div class="space-y-3"> {socialLinks.map((social) => ( social.icon === 'email' ? ( <button type="button" data-copy-email={email} aria-label="Copiar endereço de email" title="Clique para copiar" class="copy-email w-full text-left flex items-center gap-3 p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800 hover:border-neutral-200 dark:hover:border-neutral-700 transition-colors cursor-pointer" > <Icon name={social.icon} class="w-5 h-5 text-neutral-500 dark:text-neutral-400 flex-shrink-0" /> <span class="text-sm text-neutral-700 dark:text-neutral-300 break-all">{email}</span> <span class="ml-auto text-xs text-neutral-400 dark:text-neutral-500 flex-shrink-0">copiar</span> </button> ) : ( <a href={social.url} target="_blank" rel="noopener noreferrer" download={social.icon === 'resume' ? 'Lucas_Bertol_Curriculo.pdf' : undefined} class="flex items-center gap-3 p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800 hover:border-neutral-200 dark:hover:border-neutral-700 transition-colors" > <Icon name={social.icon} class="w-5 h-5 text-neutral-500 dark:text-neutral-400 flex-shrink-0" /> <span class="text-sm text-neutral-700 dark:text-neutral-300">{social.name}</span> </a> ) ))} </div> </article> </div> <!-- Contact Form --> <div> <article data-reveal class="card"> <h3 class="text-clamp-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-6">Envie uma Mensagem</h3> <form id="contact-form" action="https://formspree.io/f/your-form-id" method="POST" class="space-y-5" novalidate > <div class="grid sm:grid-cols-2 gap-5"> <div> <label for="name" class="label">Nome completo</label> <input type="text" id="name" name="name" class="input" placeholder="Lucas Bertol" required autocomplete="name" /> </div> <div> <label for="email" class="label">Email</label> <input type="email" id="email" name="email" class="input" placeholder="lucas@exemplo.com" required autocomplete="email" /> </div> </div> <div> <label for="subject" class="label">Assunto</label> <select id="subject" name="subject" class="input" required> <option value="">Selecione um assunto</option> <option value="oportunidade">Oportunidade de Trabalho</option> <option value="freelance">Projeto Freelance</option> <option value="colaboracao">Colaboração</option> <option value="outro">Outro</option> </select> </div> <div> <label for="message" class="label">Mensagem</label> <textarea id="message" name="message" rows="5" class="input resize-y min-h-[120px]" placeholder="Conte um pouco sobre a oportunidade ou projeto..." required ></textarea> </div> <div class="flex items-center gap-3"> <button type="submit" class="btn-primary w-full sm:w-auto" id="submit-btn"> <span class="btn-text">Enviar Mensagem</span> <span class="btn-loading hidden flex items-center gap-2"> <svg class="animate-spin w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg> Enviando... </span> <Icon name="arrow-right" class="w-4 h-4" /> </button> </div> <p class="text-xs text-neutral-500 dark:text-neutral-400 text-center"> Ao enviar, você concorda com o processamento dos seus dados conforme a LGPD. </p> </form> <!-- Toast notification --> </article> </div> </div> </div>
- <div id="toast" class="hidden fixed top-6 left-1/2 -translate-x-1/2 z-[110] max-w-[calc(100vw-3rem)]" role="alert" aria-live="polite"> <div class="flex items-center gap-3 pl-4 pr-5 py-3 rounded-2xl bg-white/80 dark:bg-neutral-900/80 backdrop-blur-2xl backdrop-saturate-150 border border-neutral-900/[0.08] dark:border-neutral-50/[0.12] shadow-2xl"> <span id="toast-icon" class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"></span> <span id="toast-message" class="text-sm font-medium text-neutral-800 dark:text-neutral-100"></span> </div> </div> </section> <script is:inline> const form = document.getElementById('contact-form'); const submitBtn = document.getElementById('submit-btn'); const btnText = submitBtn ? submitBtn.querySelector('.btn-text') : null; const btnLoading = submitBtn ? submitBtn.querySelector('.btn-loading') : null; const toast = document.getElementById('toast'); const toastMessage = document.getElementById('toast-message'); const toastIcon = document.getElementById('toast-icon'); function showToast(message, isError) {
-    if (!toast || !toastMessage || !toastIcon) {
-      return;
+import Icon from './Icon.astro';
+const { email, socialLinks } = portfolioData;
+---
+
+<section id="contato" class="relative" aria-labelledby="contact-title">
+  <div class="wrap py-20 sm:py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-6">
+        <p data-reveal class="mono-label mb-3">06 — Contato</p>
+        <h2 id="contact-title" data-reveal style="--reveal-delay:80ms" class="display-section">Entre em contato</h2>
+        <p data-reveal style="--reveal-delay:140ms" class="mt-5 max-w-md leading-[1.7] text-neutral-600 dark:text-neutral-400">
+          Estou disponível para oportunidades de trabalho, projetos freelance e colaborações. Envie uma mensagem com o contexto e o prazo — respondo em breve.
+        </p>
+
+        <div data-reveal style="--reveal-delay:200ms" class="mt-8 border border-neutral-900/15 dark:border-neutral-50/15 rounded-2xl p-6 sm:p-7 bg-white/50 dark:bg-neutral-900/40">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <span class="mono-label">Email</span>
+            <span class="mono-label">Clique para copiar</span>
+          </div>
+          <button type="button" data-copy-email={email} class="w-full text-left group border-t border-b border-dashed border-neutral-900/25 dark:border-neutral-50/25 py-4 hover:pl-2 transition-all" aria-label="Copiar endereço de email">
+            <span class="mt-1 flex items-center justify-between gap-3 font-display font-extrabold text-lg sm:text-xl tracking-[-0.01em] break-all">{email} <span class="shrink-0 font-mono text-[0.65rem] uppercase tracking-[0.16em] border border-current rounded-full px-3 py-1.5 group-hover:bg-neutral-900 group-hover:text-neutral-50 dark:group-hover:bg-neutral-50 dark:group-hover:text-neutral-900 transition-colors">Copiar</span></span>
+          </button>
+          <ul class="mt-4 grid sm:grid-cols-3 gap-2">
+            {socialLinks.filter((s) => s.icon !== 'email').map((s) => (
+              <li>
+                <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.name} class="flex items-center gap-3 border border-neutral-900/15 dark:border-neutral-50/15 rounded-xl px-4 py-3 text-sm font-semibold hover:bg-neutral-900 hover:text-neutral-50 dark:hover:bg-neutral-50 dark:hover:text-neutral-900 transition-colors">
+                  <Icon name={s.icon} class="w-5 h-5 shrink-0 opacity-70" />
+                  <span>{s.name}</span>
+                  <Icon name="arrow-right" class="w-4 h-4 ml-auto opacity-40" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6">
+        <div data-reveal="lateral-r" style="--reveal-delay:160ms" class="border border-neutral-900/15 dark:border-neutral-50/15 rounded-2xl p-6 sm:p-8 bg-white/60 dark:bg-neutral-900/50 backdrop-blur">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="font-display font-extrabold uppercase tracking-[-0.02em] text-xl">Enviar mensagem</h3>
+          </div>
+          <form id="contact-form" action="https://formspree.io/f/your-form-id" method="POST" class="space-y-5" novalidate>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label for="name" class="label">Nome *</label>
+                <input type="text" id="name" name="name" class="input" placeholder="Seu nome" required autocomplete="name" />
+              </div>
+              <div>
+                <label for="email" class="label">Email *</label>
+                <input type="email" id="email" name="email" class="input" placeholder="voce@exemplo.com" required autocomplete="email" />
+              </div>
+            </div>
+            <div>
+              <label for="subject" class="label">Assunto *</label>
+              <select id="subject" name="subject" class="input" required>
+                <option value="">Selecione um assunto</option>
+                <option value="oportunidade">Oportunidade de trabalho</option>
+                <option value="freelance">Projeto freelance</option>
+                <option value="colaboracao">Colaboração</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+            <div>
+              <label for="message" class="label">Mensagem *</label>
+              <textarea id="message" name="message" rows="5" class="input resize-y min-h-[120px]" placeholder="Descreva a oportunidade ou o projeto..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full" id="submit-btn">
+              <span class="btn-text">Enviar mensagem</span>
+              <span class="btn-loading hidden">Enviando...</span>
+              <Icon name="arrow-right" class="w-4 h-4" />
+            </button>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 text-center">Ao enviar, você concorda com o processamento dos dados conforme a LGPD.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="hidden fixed top-6 left-1/2 -translate-x-1/2 z-[115] max-w-[calc(100vw-3rem)]" role="alert" aria-live="polite">
+    <div class="flex items-center gap-3 pl-4 pr-5 py-3 rounded-2xl bg-neutral-900 text-neutral-50 dark:bg-neutral-50 dark:text-neutral-900 shadow-2xl">
+      <span id="toast-icon" class="flex-shrink-0 w-8 h-8 rounded-full border border-current flex items-center justify-center" aria-hidden="true">✓</span>
+      <span id="toast-message" class="text-sm font-medium"></span>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+    function showToast(msg) {
+      if (!toast || !toastMessage) return;
+      toastMessage.textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('toast-show');
+      setTimeout(() => toast.classList.add('hidden'), 5000);
     }
-    isError = isError || false;
-    toastMessage.textContent = message;
-    if (isError) {
-      toastIcon.innerHTML = '<svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008z" /><circle cx="12" cy="12" r="9" /></svg>';
-      toastIcon.className = 'flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-red-500/10 text-red-500 dark:text-red-400';
-    } else {
-      toastIcon.innerHTML = '<svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5" /></svg>';
-      toastIcon.className = 'flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-green-500/10 text-green-600 dark:text-green-400';
-    }
-    toast.className = 'fixed top-6 left-1/2 -translate-x-1/2 z-[110] max-w-[calc(100vw-3rem)] toast-show';
-    void toast.offsetWidth;
-    toast.classList.remove('hidden'); setTimeout(function() { if (toast) toast.classList.add('hidden'); }, 5000); } if (form) form.addEventListener('submit', async function(e) { e.preventDefault(); if (!submitBtn || !btnText || !btnLoading) return; const formData = new FormData(form); const data = Object.fromEntries(formData.entries()); if (!data.name || !data.email || !data.subject || !data.message) { showToast('Por favor, preencha todos os campos obrigatórios.', true); return; } const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; if (!emailRegex.test(String(data.email))) { showToast('Por favor, insira um email válido.', true); return; } submitBtn.disabled = true; btnText.classList.add('hidden'); btnLoading.classList.remove('hidden'); try { const response = await fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', }, body: JSON.stringify(data), }); if (response.ok) { showToast('Mensagem enviada com sucesso! Entrarei em contato em breve.', false); form.reset(); } else { throw new Error('Erro ao enviar mensagem'); } } catch (error) { console.error('Form submission error:', error); showToast('Erro ao enviar mensagem. Tente novamente ou entre em contato por email.', true); } finally { submitBtn.disabled = false; btnText.classList.remove('hidden'); btnLoading.classList.add('hidden'); } }); if (toast) toast.addEventListener('click', function() { toast.classList.add('hidden'); });
-  function copyText(text, done) {
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(function() { done(true); }, function() { done(false); });
-    } else {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      let ok = false;
+    if (form) form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      if (!data.name || !data.email || !data.subject || !data.message) { showToast('Por favor, preencha todos os campos.'); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(data.email))) { showToast('Por favor, informe um email válido.'); return; }
+      if (submitBtn) submitBtn.disabled = true;
       try {
-        ok = document.execCommand('copy');
-      } catch (err) {}
-      document.body.removeChild(ta);
-      done(ok);
-    }
-  }
-  document.querySelectorAll('[data-copy-email]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      const address = btn.getAttribute('data-copy-email');
-      if (!address) {
-        return;
+        const r = await fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) });
+        if (!r.ok) throw new Error('fail');
+        showToast('Mensagem enviada. Retornarei em breve.');
+        form.reset();
+      } catch (err) { showToast('Erro ao enviar. Tente pelo email direto.'); }
+      finally { if (submitBtn) submitBtn.disabled = false; }
+    });
+    if (toast) toast.addEventListener('click', () => toast.classList.add('hidden'));
+    function copyText(t, done) {
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(() => done(true), () => done(false));
+      else {
+        const ta = document.createElement('textarea');
+        ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta); done(ok);
       }
-      copyText(address, function(ok) {
-        if (ok) {
-          showToast('Email copiado: ' + address, false);
-        } else {
-          showToast('Não foi possível copiar. Anote: ' + address, true);
-        }
+    }
+    document.querySelectorAll('[data-copy-email]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const addr = btn.getAttribute('data-copy-email');
+        if (addr) copyText(addr, (ok) => showToast(ok ? 'Email copiado: ' + addr : 'Anote: ' + addr));
       });
     });
-  });
+  })();
 </script>

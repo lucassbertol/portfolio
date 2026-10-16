@@ -1,6 +1,105 @@
 ---
 import { portfolioData } from '@/data/portfolio';
-import Icon from './Icon.astro'; const { skills } = portfolioData; const categoryIcons: Record<string, string> = { 'Backend': 'server', 'Frontend': 'code', 'Ferramentas & DevOps': 'database', 'Testes & Qualidade': 'test', 'Dados & Análise': 'cloud', 'IA & Cloud': 'ai',
-};
---- <section id="habilidades" class="section relative bg-neutral-950" aria-labelledby="skills-title"> <div class="container-custom relative z-10"> <header class="max-w-3xl mx-auto mb-14 lg:mb-20 text-center"> <p data-reveal class="eyebrow mb-5">Stack</p> <h2 id="skills-title" data-reveal style="--reveal-delay: 80ms" class="section-title mb-4">Habilidades Técnicas</h2> <p data-reveal style="--reveal-delay: 140ms" class="section-subtitle mx-auto">Tecnologias e ferramentas que domino, organizadas por categoria.</p> </header> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"> {skills.map((category, index) => ( <article data-reveal class="card card-interactive group" style={`--reveal-delay: ${index * 90}ms`}> <div class="flex items-center gap-3.5 mb-5"> <div class="w-12 h-12 rounded-2xl bg-neutral-900/[0.05] dark:bg-neutral-50/[0.07] border border-neutral-900/[0.06] dark:border-neutral-50/[0.08] flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"> <Icon name={categoryIcons[category.name] || 'code'} class="w-5 h-5 text-neutral-900 dark:text-neutral-50" /> </div> <h3 class="font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">{category.name}</h3> </div> <div class="flex flex-wrap gap-2"> {category.skills.map((skill) => ( <span class="tag"> {skill} </span> ))} </div> </article> ))} </div> </div>
+import { stackIcons } from '@/data/stackIcons';
+const { skills } = portfolioData;
+---
+
+<section id="habilidades" class="relative border-y border-neutral-900/10 dark:border-neutral-50/10 bg-neutral-100/60 dark:bg-neutral-900/30" aria-labelledby="skills-title">
+  <div class="wrap py-20 sm:py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-8 mb-10 lg:mb-14">
+      <div class="lg:col-span-7">
+        <p data-reveal class="mono-label mb-3">03 — Habilidades</p>
+        <h2 id="skills-title" data-reveal style="--reveal-delay:80ms" class="display-section">Habilidades técnicas</h2>
+      </div>
+      <div class="lg:col-span-5 lg:justify-self-end lg:self-end">
+        <p data-reveal style="--reveal-delay:140ms" class="text-neutral-600 dark:text-neutral-400 max-w-sm lg:ml-auto leading-relaxed">Tecnologias organizadas por categoria, com destaque para as principais.</p>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+      {skills.map((cat, i) => (
+        <article
+          data-reveal
+          style={`--reveal-delay:${(i % 4) * 60}ms`}
+          class="tilt-card group rounded-2xl border border-neutral-900/15 dark:border-neutral-50/15 bg-white/60 dark:bg-neutral-900/50 backdrop-blur p-5 sm:p-6 flex flex-col hover:shadow-[var(--shadow-lift)] hover:border-neutral-900/30 dark:hover:border-neutral-50/30"
+        >
+          <div class="flex items-baseline justify-between gap-3 mb-4">
+            <h3 class="font-display font-extrabold uppercase tracking-[-0.01em] leading-tight">{cat.name}</h3>
+            <span class="font-mono text-[0.65rem] font-bold tabular-nums opacity-40" aria-hidden="true">0{i + 1}</span>
+          </div>
+
+          <ul class="flex flex-wrap gap-2" aria-label={`Principais: ${cat.name}`}>
+            {cat.primary.map((s) => (
+              <li class="inline-flex items-center gap-1.5 rounded-full bg-neutral-900 text-neutral-50 dark:bg-neutral-50 dark:text-neutral-900 pl-2 pr-3 py-1.5 text-[0.78rem] font-semibold">
+                {stackIcons[s] && (
+                  <img
+                    src={stackIcons[s]}
+                    alt=""
+                    aria-hidden="true"
+                    width="16"
+                    height="16"
+                    loading="lazy"
+                    decoding="async"
+                    class="w-4 h-4 grayscale invert dark:invert-0 opacity-90"
+                  />
+                )}
+                {s}
+              </li>
+            ))}
+          </ul>
+
+          {cat.secondary.length > 0 && (
+            <>
+              <div class="rule-dashed my-4 text-neutral-900 dark:text-neutral-50" aria-hidden="true"></div>
+              <ul class="flex flex-wrap gap-1.5" aria-label={`Complementares: ${cat.name}`}>
+                {cat.secondary.map((s) => (
+                  <li class="inline-flex items-center gap-1.5 rounded-full border border-neutral-900/20 dark:border-neutral-50/20 px-3 py-1 text-[0.72rem] font-medium text-neutral-600 dark:text-neutral-400">
+                    {stackIcons[s] && (
+                      <img
+                        src={stackIcons[s]}
+                        alt=""
+                        aria-hidden="true"
+                        width="13"
+                        height="13"
+                        loading="lazy"
+                        decoding="async"
+                        class="w-[13px] h-[13px] grayscale dark:invert opacity-70"
+                      />
+                    )}
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
 </section>
+
+<script is:inline>
+  // Tilt 3D nos cards de habilidades (só mouse fino, sem reduced-motion).
+  (() => {
+    const cards = document.querySelectorAll('.tilt-card');
+    if (!cards.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const max = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--card-tilt-max')) || 5;
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.setProperty('--ry', (x * 2 * max).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', (-y * 2 * max).toFixed(2) + 'deg');
+        card.style.setProperty('--mx', ((x + 0.5) * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', ((y + 0.5) * 100).toFixed(1) + '%');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+  })();
+</script>

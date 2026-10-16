@@ -1,5 +1,55 @@
 ---
 import { portfolioData } from '@/data/portfolio';
-import Icon from './Icon.astro'; const { education, certifications } = portfolioData;
---- <section id="sobre" class="section relative bg-neutral-950" aria-labelledby="about-title"> <div class="container-custom relative z-10"> <header class="max-w-3xl mx-auto mb-14 lg:mb-20 text-center"> <p data-reveal class="eyebrow mb-5 mx-auto">Perfil</p> <h2 id="about-title" data-reveal style="--reveal-delay: 80ms" class="section-title mb-4">Sobre Mim</h2> <p data-reveal style="--reveal-delay: 140ms" class="section-subtitle mx-auto">Conheça minha trajetória, formação e o que me move como desenvolvedor.</p> </header> <div class="max-w-4xl mx-auto space-y-6"> <article data-reveal class="card"> <div class="flex items-start gap-4"> <div class="w-12 h-12 rounded-2xl bg-neutral-900/[0.05] dark:bg-neutral-50/[0.07] border border-neutral-900/[0.06] dark:border-neutral-50/[0.08] flex items-center justify-center flex-shrink-0"> <Icon name="code" class="w-6 h-6 text-neutral-900 dark:text-neutral-50" /> </div> <div> <h3 class="text-clamp-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-3">Formação Acadêmica</h3> <div class="space-y-2"> <p class="text-clamp-base text-neutral-700 dark:text-neutral-300 leading-relaxed"> <strong class="text-neutral-900 dark:text-neutral-50">{education.degree}, {education.institution} </p> <p class="text-sm text-neutral-500 dark:text-neutral-400">{education.period}</p> <p class="text-clamp-sm text-neutral-600 dark:text-neutral-400 mt-2">{education.details}</p> </div> </div> </div> </article> <article data-reveal class="card"> <div class="flex items-start gap-4"> <div class="w-12 h-12 rounded-2xl bg-neutral-900/[0.05] dark:bg-neutral-50/[0.07] border border-neutral-900/[0.06] dark:border-neutral-50/[0.08] flex items-center justify-center flex-shrink-0"> <Icon name="server" class="w-6 h-6 text-neutral-900 dark:text-neutral-50" /> </div> <div> <h3 class="text-clamp-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-3">Objetivo Profissional</h3> <p class="text-clamp-base text-neutral-600 dark:text-neutral-400 leading-relaxed"> Busco atuar nas áreas de desenvolvimento de software (Backend/Fullstack), testes de software (QA) ou análise de dados. Possuo experiência prática com Python, PHP e JavaScript, com raciocínio lógico e atenção a detalhes aplicados na especificação e validação de funcionalidades. Tenho vivência em ambiente de pesquisa e extensão universitária, e busco uma oportunidade para aplicar e expandir meus conhecimentos técnicos, integrar times ágeis e evoluir profissionalmente. </p> </div> </div> </article> <article data-reveal class="card"> <div class="flex items-start gap-4"> <div class="w-12 h-12 rounded-2xl bg-neutral-900/[0.05] dark:bg-neutral-50/[0.07] border border-neutral-900/[0.06] dark:border-neutral-50/[0.08] flex items-center justify-center flex-shrink-0"> <Icon name="check" class="w-6 h-6 text-neutral-900 dark:text-neutral-50" /> </div> <div> <h3 class="text-clamp-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-4">Cursos e Certificações</h3> <div class="space-y-3"> {certifications.map((cert, i) => ( <div class="flex items-center gap-3 p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800 transition-colors hover:border-neutral-200 dark:hover:border-neutral-700"> <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center"> <Icon name="check" class="w-4 h-4 text-neutral-600 dark:text-neutral-400" /> </span> <div> <p class="font-medium text-neutral-900 dark:text-neutral-50 text-sm">{cert.name}</p> <p class="text-xs text-neutral-500 dark:text-neutral-400">{cert.issuer} • {cert.date}</p> </div> </div> ))} </div> </div> </div> </article> </div>
+const { education, certifications } = portfolioData;
+---
+
+<section id="sobre" class="relative" aria-labelledby="about-title">
+  <div class="wrap py-20 sm:py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-4">
+        <div class="lg:sticky lg:top-28">
+          <p data-reveal class="mono-label mb-3">02 — Sobre</p>
+          <h2 id="about-title" data-reveal style="--reveal-delay:80ms" class="display-section">Sobre mim</h2>
+          <div class="rule my-6" aria-hidden="true"></div>
+          <p data-reveal style="--reveal-delay:140ms" class="mono-label">UFSM · Sistemas de Informação · até 07/2028</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <p data-reveal class="mono-label mb-4">Apresentação</p>
+        <div data-reveal style="--reveal-delay:100ms" class="space-y-5 text-[0.98rem] leading-[1.75] text-neutral-700 dark:text-neutral-300">
+          <p>Busco atuar nas áreas de desenvolvimento de software, testes de software ou análise de dados. Tenho experiência prática com Python, PHP e JavaScript, com foco em lógica, atenção a detalhes e validação das funcionalidades que desenvolvo.</p>
+          <p>Tenho vivência em ambiente de pesquisa e extensão universitária, incluindo o desenvolvimento e a manutenção de um sistema para gerenciamento de cerca de 80 computadores em laboratórios do CT-UFSM.</p>
+          <p>Procuro uma oportunidade para aplicar e expandir meus conhecimentos, colaborar com times ágeis e evoluir profissionalmente.</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-3">
+        <div data-reveal="lateral-r" style="--reveal-delay:160ms" class="border border-neutral-900/15 dark:border-neutral-50/15 rounded-2xl bg-white/60 dark:bg-neutral-900/50 backdrop-blur overflow-hidden">
+          <div class="px-6 pt-6 pb-4 border-b border-dashed border-neutral-900/20 dark:border-neutral-50/20">
+            <p class="mono-label">Formação acadêmica</p>
+            <p class="mt-2 font-display font-extrabold uppercase tracking-[-0.02em] leading-tight">{education.degree}</p>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">{education.institution}</p>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">{education.details}</p>
+          </div>
+          <div class="px-6 pb-6">
+            <p class="mono-label mb-3">Certificações — FIAP</p>
+            <ul class="space-y-2.5">
+              {certifications.map((c, ci) => (
+                <li data-reveal style={`--reveal-delay:${ci * 60}ms`} class="flex items-start gap-3 border border-neutral-900/10 dark:border-neutral-50/10 rounded-xl px-3 py-2.5">
+                  <span class="font-display font-bold text-sm border border-current rounded-md w-7 h-7 grid place-items-center shrink-0" aria-hidden="true">✓</span>
+                  <span>
+                    <span class="block text-[0.82rem] font-semibold leading-snug">{c.name}</span>
+                    <span class="block font-mono text-[0.65rem] uppercase tracking-[0.12em] opacity-60 mt-0.5">{c.issuer} · {c.date}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

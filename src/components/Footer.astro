@@ -1,7 +1,57 @@
 ---
 import { portfolioData } from '@/data/portfolio';
-import Icon from './Icon.astro'; const { name, email, github, linkedin, website, socialLinks } = portfolioData;
+import Icon from './Icon.astro';
+const { name, email, github, socialLinks } = portfolioData;
 const currentYear = new Date().getFullYear();
---- <footer class="bg-white/70 dark:bg-neutral-950/60 backdrop-blur-2xl backdrop-saturate-150 border-t border-neutral-900/[0.06] dark:border-neutral-50/[0.06]" role="contentinfo"> <div class="container-custom py-10 lg:py-14"> <div class="grid lg:grid-cols-3 gap-8 lg:gap-12"> <!-- Brand & Bio --> <div class="lg:col-span-1"> <a href="#inicio" class="inline-block mb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-900 rounded-md"> <span class="text-clamp-xl font-bold gradient-text">{name}</span> </a> <p class="text-clamp-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6 max-w-xs"> Desenvolvedor Fullstack apaixonado por construir soluções elegantes e funcionais. Busco oportunidades para crescer e contribuir com times de alta performance. </p> <div class="flex items-center gap-4"> {socialLinks.slice(0, 3).map((social) => ( <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.ariaLabel} class="p-2 rounded-lg text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-50 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50" > <Icon name={social.icon} class="w-5 h-5" /> </a> ))} </div> </div> <!-- Quick Links --> <nav class="lg:col-span-1" aria-label="Navegação rápida"> <h3 class="text-sm font-semibold text-neutral-900 dark:text-neutral-50 uppercase tracking-wider mb-4">Navegação</h3> <ul class="space-y-3"> <li><a href="#sobre" class="footer-link">Sobre Mim</a></li> <li><a href="#habilidades" class="footer-link">Habilidades</a></li> <li><a href="#experiencia" class="footer-link">Experiência</a></li> <li><a href="#projetos" class="footer-link">Projetos</a></li> <li><a href="#contato" class="footer-link">Contato</a></li> </ul> </nav> <!-- Contact & Legal --> <div class="lg:col-span-1"> <h3 class="text-sm font-semibold text-neutral-900 dark:text-neutral-50 uppercase tracking-wider mb-4">Contato Direto</h3> <address class="not-italic space-y-3 text-clamp-sm text-neutral-600 dark:text-neutral-400"> <a href={`mailto:${email}`} class="footer-link flex items-center gap-2"> <Icon name="email" class="w-4 h-4" /> <span>{email}</span> </a>  <div class="flex items-center gap-2"> <Icon name="globe" class="w-4 h-4" /> <span>Santa Maria, RS, Brasil</span> </div> </address> <div class="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-800"> <p class="text-xs text-neutral-500 dark:text-neutral-400 text-center"> &copy; {currentYear} {name}. Todos os direitos reservados. </p> <p class="text-xs text-neutral-500 dark:text-neutral-400 text-center mt-1"> Construído com <span class="text-red-500">♥</span> </p> </div> </div> </div> <!-- Bottom bar --> <div class="mt-8 pt-8 border-t border-neutral-200 dark:border-neutral-800"> <div class="flex flex-col sm:flex-row items-center justify-between gap-4"> <p class="text-xs text-neutral-500 dark:text-neutral-400"> Feito com foco em performance, acessibilidade e boas práticas web. </p> <div class="flex items-center gap-4"> <a href="#inicio" class="footer-link text-xs">Voltar ao topo</a> <a href={github} target="_blank" rel="noopener noreferrer" class="footer-link text-xs flex items-center gap-1"> <Icon name="github" class="w-3.5 h-3.5" /> Código Fonte </a> </div> </div> </div> </div>
-</footer> <style> .footer-link { @apply text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors; }
-</style>
+---
+
+<div class="bg-neutral-900 text-neutral-50 dark:bg-neutral-950 dark:text-neutral-50 border-t-2 border-neutral-900 dark:border-neutral-50/20">
+  <div data-reveal class="mx-auto w-full max-w-[80rem] px-5 sm:px-8 lg:px-12 pt-12 pb-8">
+    <!-- Colofão gigante -->
+    <a href="#inicio" class="block group" aria-label="Voltar ao topo">
+      <p class="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-neutral-400 mb-2">Voltar ao início ↑</p>
+      <p class="font-display font-extrabold uppercase leading-[0.95] tracking-[-0.03em] text-[clamp(2rem,6vw,4.5rem)]">Vamos trabalhar juntos?</p>
+    </a>
+
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 border-t border-neutral-50/15 pt-8">
+      <div>
+        <p class="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-neutral-400 mb-3">Expediente</p>
+        <p class="font-display font-extrabold uppercase">{name}</p>
+        <p class="text-sm text-neutral-400 mt-1 leading-relaxed">Fullstack que testa antes de entregar. Santa Maria, RS.</p>
+      </div>
+      <nav aria-label="Navegação de rodapé">
+        <p class="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-neutral-400 mb-3">Capítulos</p>
+        <ul class="space-y-2 text-sm">
+          {[['#sobre','02 Perfil'],['#habilidades','03 Stack'],['#experiencia','04 Campo'],['#projetos','05 Casos'],['#contato','06 Sinal']].map(([h,t]) => (
+            <li><a href={h} class="text-neutral-300 hover:text-white hover:pl-1 transition-all">{t}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <div>
+        <p class="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-neutral-400 mb-3">Direto</p>
+        <address class="not-italic space-y-2 text-sm text-neutral-300">
+          <a href={`mailto:${email}`} class="hover:text-white transition-colors break-all">{email}</a>
+          <p class="text-neutral-400">Santa Maria, RS — Brasil</p>
+        </address>
+      </div>
+      <div>
+        <p class="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-neutral-400 mb-3">Arquivo</p>
+        <div class="flex flex-wrap gap-2">
+          {socialLinks.map((s) => (
+            <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.ariaLabel} title={s.name} class="p-2.5 rounded-xl border border-neutral-50/20 text-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 transition-colors">
+              <Icon name={s.icon} class="w-4 h-4" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-neutral-50/15 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-neutral-500">© {currentYear} {name}</p>
+      <div class="flex items-center gap-4 font-mono text-[0.62rem] uppercase tracking-[0.16em]">
+        <a href="#inicio" class="text-neutral-400 hover:text-white transition-colors">Topo</a>
+        <a href={github} target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-1"><Icon name="github" class="w-3.5 h-3.5" /> Fonte</a>
+      </div>
+    </div>
+  </div>
+</div>

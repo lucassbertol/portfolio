@@ -1,6 +1,127 @@
 ---
 import { portfolioData } from '@/data/portfolio';
-import Icon from './Icon.astro'; const { name, title, location, bio, socialLinks } = portfolioData;
---- <section id="inicio" class="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-24 pb-20 lg:pt-28 lg:pb-24" aria-labelledby="hero-title"> <!-- Layered cinematic background --> <div class="absolute inset-0 -z-10" aria-hidden="true"> <div class="absolute inset-0 bg-neutral-50 dark:bg-neutral-950"></div> <div class="absolute inset-0 opacity-[0.5] dark:opacity-[0.35]" style="background-image: radial-gradient(rgb(0 0 0 / 0.055) 1px, transparent 1px); background-size: 26px 26px; mask-image: radial-gradient(ellipse 75% 60% at 50% 38%, black 25%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 38%, black 25%, transparent 78%);" ></div> <div data-parallax="0.1" class="absolute -top-48 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] rounded-full bg-neutral-900/[0.04] dark:bg-neutral-50/[0.045] blur-[90px] animate-float-slow"></div> <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-neutral-50 dark:from-neutral-950 to-transparent"></div> </div> <div class="container-custom relative z-10"> <div class="max-w-4xl mx-auto text-center"> <!-- Glass eyebrow badge -->  <!-- Display name --> <p data-reveal style="--reveal-delay: 80ms" class="text-sm font-semibold uppercase tracking-[0.22em] text-neutral-400 dark:text-neutral-500 mb-5"> {title} </p> <h1 id="hero-title" data-reveal style="--reveal-delay: 140ms" class="display gradient-text mb-7"> {name} </h1> <!-- Bio --> <p data-reveal style="--reveal-delay: 220ms" class="text-balance text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto mb-11" class:list={["text-[1.05rem] leading-[1.75]"]}> {bio} </p> <!-- CTAs with microinteractions --> <div data-reveal style="--reveal-delay: 300ms" class="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-12"> <a href="#projetos" class="btn-primary w-full sm:w-auto group"> Ver Projetos <Icon name="arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" /> </a> <a href="#contato" class="btn-secondary w-full sm:w-auto"> Entrar em Contato </a> </div> <!-- Glass social row --> <div data-reveal style="--reveal-delay: 380ms" class="flex items-center justify-center gap-3"> {socialLinks.map((social) => ( <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.ariaLabel} title={social.name} download={social.icon === 'resume' ? 'Lucas_Bertol_Curriculo.pdf' : undefined} class="group p-3.5 rounded-2xl glass-soft text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-100" > <Icon name={social.icon} class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" /> </a> ))} </div>  </div> </div>
+import Icon from './Icon.astro';
+const { bio, socialLinks } = portfolioData;
+---
+
+<section id="inicio" class="relative overflow-hidden" aria-labelledby="hero-title">
+  <div class="absolute inset-0 -z-10 blueprint opacity-50" aria-hidden="true"></div>
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-transparent to-neutral-50 dark:to-neutral-950" aria-hidden="true"></div>
+  <canvas id="hero-dust" aria-hidden="true"></canvas>
+
+  <div class="wrap pt-10 sm:pt-14 lg:pt-20 pb-10">
+    <div class="max-w-4xl">
+      <p data-reveal style="--reveal-delay:60ms" class="mono-label mb-4">Santa Maria - RS</p>
+      <h1 id="hero-title" data-reveal="fade" class="display-mega" aria-label="Lucas Bertol, desenvolvedor fullstack">
+        Lucas Bertol
+      </h1>
+      <p data-reveal style="--reveal-delay:120ms" class="mt-4 font-display font-bold uppercase tracking-[-0.01em] text-lg sm:text-xl text-neutral-600 dark:text-neutral-400">
+        Desenvolvedor Fullstack
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-6 mt-10 lg:mt-14 items-stretch">
+      <div data-reveal style="--reveal-delay:120ms" class="lg:col-span-7 border border-neutral-900/15 dark:border-neutral-50/15 rounded-2xl p-6 sm:p-8 bg-white/60 dark:bg-neutral-900/50 backdrop-blur shadow-[var(--shadow-soft)] flex flex-col">
+        <p class="mono-label mb-3">Sobre</p>
+        <p class="text-[1.02rem] leading-[1.7] text-neutral-700 dark:text-neutral-300 text-balance">
+          {bio}
+        </p>
+        <div class="rule-dashed my-5 text-neutral-900 dark:text-neutral-50" aria-hidden="true"></div>
+        <div class="flex flex-wrap gap-2 mt-auto">
+          {['Python', 'PHP', 'JavaScript', 'Testes', 'Dados'].map((t) => (
+            <span class="tag">{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 flex flex-col gap-4">
+        <div data-reveal="lateral-r" style="--reveal-delay:200ms" class="border border-neutral-900/15 dark:border-neutral-50/15 rounded-2xl p-6 sm:p-7 bg-white/60 dark:bg-neutral-900/50 backdrop-blur flex flex-col gap-3 flex-1">
+          <p class="mono-label">Ações</p>
+          <a href="#projetos" class="btn-primary w-full">Ver projetos <Icon name="arrow-right" class="w-4 h-4" /></a>
+          <a href="#contato" class="btn-secondary w-full">Entrar em contato</a>
+          <div class="rule-dashed my-1 text-neutral-900 dark:text-neutral-50" aria-hidden="true"></div>
+          <p class="mono-label">Redes e contato</p>
+          <ul class="grid sm:grid-cols-2 gap-2">
+            {socialLinks.map((s) => (
+              <li>
+                <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.ariaLabel} title={s.name} class="flex items-center gap-2.5 rounded-xl border border-neutral-900/15 dark:border-neutral-50/15 px-3.5 py-2.5 text-sm font-semibold text-neutral-600 dark:text-neutral-300 hover:text-neutral-50 hover:bg-neutral-900 dark:hover:text-neutral-900 dark:hover:bg-neutral-50 hover:-translate-y-0.5 transition-all">
+                  <Icon name={s.icon} class="w-4 h-4 shrink-0 opacity-70" />
+                  {s.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-neutral-900/10 dark:border-neutral-50/10 mt-8" aria-hidden="true"></div>
 </section>
 
+<script is:inline>
+  // Poeira de luz no hero: poucas partículas lentas, DPR limitado,
+  // pausa fora da tela/aba oculta; nada com prefers-reduced-motion.
+  (() => {
+    const canvas = document.getElementById('hero-dust');
+    const section = document.getElementById('inicio');
+    if (!canvas || !section) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const css = getComputedStyle(document.documentElement);
+    const baseCount = parseInt(css.getPropertyValue('--dust-count')) || 28;
+    const baseSpeed = parseFloat(css.getPropertyValue('--dust-speed')) || 0.25;
+    const baseAlpha = parseFloat(css.getPropertyValue('--dust-alpha')) || 0.4;
+
+    let w = 0, h = 0, parts = [], raf = 0, visible = true;
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const r = section.getBoundingClientRect();
+      w = r.width; h = r.height;
+      canvas.width = Math.max(1, Math.round(w * dpr));
+      canvas.height = Math.max(1, Math.round(h * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = window.innerWidth < 768 ? Math.round(baseCount / 2) : baseCount;
+      parts = Array.from({ length: n }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 0.6 + Math.random() * 1.2,
+        s: baseSpeed * (0.5 + Math.random()),
+        a: baseAlpha * (0.35 + Math.random() * 0.65),
+        ph: Math.random() * Math.PI * 2,
+      }));
+    }
+    function frame(t) {
+      raf = 0;
+      if (!visible || document.hidden) return;
+      ctx.clearRect(0, 0, w, h);
+      for (const p of parts) {
+        p.y -= p.s;
+        p.x += Math.sin(t / 2400 + p.ph) * 0.12;
+        if (p.y < -4) { p.y = h + 4; p.x = Math.random() * w; }
+        if (p.x < -4) p.x = w + 4;
+        if (p.x > w + 4) p.x = -4;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, ' + p.a.toFixed(2) + ')';
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+    function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+    document.addEventListener('visibilitychange', () => { document.hidden ? stop() : kick(); });
+    window.addEventListener('resize', () => { resize(); kick(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          visible = e.isIntersecting;
+          visible ? kick() : stop();
+        });
+      }, { threshold: 0 }).observe(section);
+    }
+    resize();
+    kick();
+  })();
+</script>

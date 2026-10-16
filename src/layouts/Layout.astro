@@ -19,125 +19,114 @@ const ogImage = image ? new URL(image, Astro.site).href : new URL('/og-image.png
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Lucas Bertol - Portfolio" />
+    <meta property="og:site_name" content="Lucas Bertol — Caderno de Bancada" />
     <meta property="og:locale" content="pt_BR" />
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
 
-    <!-- Additional SEO -->
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#171717" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0a0a0a" />
 
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Lucas Salvini Bertol",
       "url": "https://lucasbertol.dev.br",
-      "image": ogImage,
-      "sameAs": [
-        "https://github.com/lucassbertol",
-        "https://www.linkedin.com/in/lucas-bertol-85410934a"
-      ],
       "jobTitle": "Desenvolvedor Fullstack",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "NCC - Núcleo de Ciência da Computação"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Santa Maria",
-        "addressRegion": "RS",
-        "addressCountry": "BR"
-      },
-      "email": "mailto:lucassalvinibertol@gmail.com",
-      "knowsAbout": [
-        "Python", "Django", "PHP", "JavaScript", "React", "Node.js",
-        "TypeScript", "HTML5", "CSS3", "Git", "Docker", "Pytest",
-        "Power BI", "MySQL", "PostgreSQL", "Testes de Software",
-        "Análise de Dados", "Inteligência Artificial", "Cloud Computing"
-      ],
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "Universidade Federal de Santa Maria"
-      }
+      "address": { "@type": "PostalAddress", "addressLocality": "Santa Maria", "addressRegion": "RS", "addressCountry": "BR" },
+      "sameAs": ["https://github.com/lucassbertol", "https://www.linkedin.com/in/lucas-bertol-85410934a"],
     })} />
 
-    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://github.com" />
-    <link rel="dns-prefetch" href="https://linkedin.com" />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+    </noscript>
 
-    <!-- Fonts: Inter + JetBrains Mono (self-hosted via Google Fonts) -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'" />
-
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
   </head>
-  <body class="h-full flex flex-col grain">
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-neutral-900 focus:text-neutral-50 focus:rounded-full text-sm font-medium">
+  <body class="h-full flex flex-col grain text-neutral-900 dark:text-neutral-50 bg-neutral-50 dark:bg-neutral-950">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[130] focus:px-4 focus:py-2 focus:bg-neutral-900 focus:text-neutral-50 dark:focus:bg-neutral-50 dark:focus:text-neutral-900 focus:rounded-full text-sm font-medium">
       Pular para o conteúdo principal
     </a>
 
-    <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-neutral-900 dark:bg-neutral-100 z-50" aria-hidden="true"></div>
+    <div id="cursor-dot" class="text-neutral-900 dark:text-neutral-50" aria-hidden="true"></div>
+    <div id="cursor-ring" class="text-neutral-900 dark:text-neutral-50" aria-hidden="true"></div>
 
-    <header id="site-header" class="sticky top-0 z-40 glass border-b border-neutral-900/[0.06] dark:border-neutral-50/[0.06] transition-all duration-300">
+    <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] w-full origin-left scale-x-0 bg-neutral-900 dark:bg-neutral-100 z-[110]" aria-hidden="true"></div>
+
+    <header id="site-header" class="sticky top-0 z-[100] bg-neutral-50/85 dark:bg-neutral-950/85 backdrop-blur-xl border-b border-neutral-900/10 dark:border-neutral-50/10">
       <slot name="header" />
     </header>
 
-    <main id="main-content" class="flex-1" role="main">
-      <slot />
-    </main>
+    <!-- Índice lateral fixo (desktop): alternativa ao menu horizontal -->
+    <nav id="side-index" class="hidden xl:flex fixed left-0 top-0 h-svh w-[76px] flex-col items-center justify-between py-6 border-r border-neutral-900/10 dark:border-neutral-50/10 bg-neutral-50/70 dark:bg-neutral-950/70 backdrop-blur-xl z-[95]" aria-label="Índice de seções">
+      <span class="font-mono text-[0.62rem] tracking-[0.25em] uppercase opacity-60 [writing-mode:vertical-rl] rotate-180">Portfólio — 2026</span>
+      <ol class="flex flex-col gap-1 relative" id="side-index-list">
+        <li><a href="#inicio" data-spy="inicio" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">01</span><span class="h-6 w-px bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:h-10 transition-all" aria-hidden="true"></span><span class="sr-only">Início</span></a></li>
+        <li><a href="#sobre" data-spy="sobre" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">02</span><span class="h-6 w-px bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:h-10 transition-all" aria-hidden="true"></span><span class="sr-only">Perfil</span></a></li>
+        <li><a href="#habilidades" data-spy="habilidades" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">03</span><span class="h-6 w-px bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:h-10 transition-all" aria-hidden="true"></span><span class="sr-only">Stack</span></a></li>
+        <li><a href="#experiencia" data-spy="experiencia" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">04</span><span class="h-6 w-px bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:h-10 transition-all" aria-hidden="true"></span><span class="sr-only">Campo</span></a></li>
+        <li><a href="#projetos" data-spy="projetos" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">05</span><span class="h-6 w-px bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:h-10 transition-all" aria-hidden="true"></span><span class="sr-only">Casos</span></a></li>
+        <li><a href="#contato" data-spy="contato" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">06</span><span class="h-6 w-px bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:h-10 transition-all" aria-hidden="true"></span><span class="sr-only">Contato</span></a></li>
+      </ol>
+      <span id="side-percent" class="font-mono text-[0.62rem] font-bold tabular-nums">0%</span>
+    </nav>
 
-    <footer class="border-t border-neutral-200 dark:border-neutral-800">
-      <slot name="footer" />
-    </footer>
+    <div class="xl:pl-[76px]">
+      <main id="main-content" class="flex-1" role="main">
+        <slot />
+      </main>
 
-    <!-- Theme toggle and scroll restoration script -->
+      <footer class="border-t border-neutral-900/10 dark:border-neutral-50/10">
+        <slot name="footer" />
+      </footer>
+    </div>
+
+    <a
+      href="#inicio"
+      id="to-top"
+      aria-label="Voltar ao topo"
+      class="fixed bottom-6 right-6 z-[96] grid place-items-center w-11 h-11 rounded-full border border-neutral-900/20 dark:border-neutral-50/20 bg-neutral-50/90 dark:bg-neutral-950/90 backdrop-blur-xl text-neutral-900 dark:text-neutral-50 shadow-[var(--shadow-lift)] hover:bg-neutral-900 hover:text-neutral-50 dark:hover:bg-neutral-50 dark:hover:text-neutral-900"
+    >
+      <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+      </svg>
+    </a>
+
     <script is:inline>
       (() => {
         document.documentElement.classList.add('dark');
-
-        if ('scrollRestoration' in history) {
-          history.scrollRestoration = 'manual';
-        }
-        window.addEventListener('beforeunload', () => {
-          try { sessionStorage.setItem('scrollPos', window.scrollY.toString()); } catch (e) {}
-        });
-        window.addEventListener('load', () => {
-          try {
-            const pos = sessionStorage.getItem('scrollPos');
-            if (pos) {
-              window.scrollTo(0, parseInt(pos, 10));
-              sessionStorage.removeItem('scrollPos');
-            }
-          } catch (e) {}
-        });
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         const progress = document.getElementById('scroll-progress');
-        const header = document.getElementById('site-header');
+        const sidePercent = document.getElementById('side-percent');
+        const toTop = document.getElementById('to-top');
         let ticking = false;
         function onScroll() {
           if (!ticking) {
@@ -145,10 +134,8 @@ const ogImage = image ? new URL(image, Astro.site).href : new URL('/og-image.png
               const max = document.documentElement.scrollHeight - window.innerHeight;
               const p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
               if (progress) progress.style.transform = 'scaleX(' + p + ')';
-              if (header) {
-                if (window.scrollY > 24) header.classList.add('is-scrolled');
-                else header.classList.remove('is-scrolled');
-              }
+              if (sidePercent) sidePercent.textContent = Math.round(p * 100) + '%';
+              if (toTop) toTop.classList.toggle('is-visible', window.scrollY > 600);
               ticking = false;
             });
             ticking = true;
@@ -156,12 +143,78 @@ const ogImage = image ? new URL(image, Astro.site).href : new URL('/og-image.png
         }
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
+
+        // Voltar ao topo com o mesmo offset do header fixo
+        if (toTop) toTop.addEventListener('click', function(e) {
+          const target = document.getElementById('inicio');
+          if (!target) return;
+          e.preventDefault();
+          const h = document.getElementById('site-header');
+          const off = h ? h.offsetHeight : 0;
+          window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - off, behavior: reduceMotion ? 'auto' : 'smooth' });
+        });
+
+        // Scroll-spy do índice lateral (visual + aria-current para leitores de tela)
+        const links = Array.from(document.querySelectorAll('.spy-link'));
+        const sections = links
+          .map((a) => document.getElementById(a.getAttribute('data-spy') || ''))
+          .filter(Boolean);
+        if ('IntersectionObserver' in window && sections.length) {
+          const spy = new IntersectionObserver((entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                links.forEach((l) => {
+                  const active = l.getAttribute('data-spy') === e.target.id;
+                  l.classList.toggle('is-active', active);
+                  if (active) l.setAttribute('aria-current', 'true');
+                  else l.removeAttribute('aria-current');
+                });
+              }
+            });
+          }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+          sections.forEach((s) => spy.observe(s));
+        }
+
+        // Magnetismo sutil nos botões: desloca poucos px em direção ao cursor.
+        const magnetPx = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--magnetic-px')) || 3;
+        const fineBtn = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (!reduceMotion && fineBtn) {
+          document.querySelectorAll('.btn-primary, .btn-secondary').forEach((btn) => {
+            btn.addEventListener('mousemove', (e) => {
+              const r = btn.getBoundingClientRect();
+              const x = ((e.clientX - r.left) / r.width - 0.5) * 2 * magnetPx;
+              const y = ((e.clientY - r.top) / r.height - 0.5) * 2 * magnetPx;
+              btn.style.transform = 'translate(' + x.toFixed(1) + 'px, ' + y.toFixed(1) + 'px)';
+            });
+            btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+          });
+        }
+
+        // Cursor customizado (só mouse fino, sem reduced-motion)
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (!reduceMotion && fine && dot && ring) {
+          let x = -100, y = -100, rx = -100, ry = -100;
+          document.addEventListener('mousemove', (e) => {
+            x = e.clientX; y = e.clientY;
+            dot.style.transform = 'translate(' + (x - 3) + 'px,' + (y - 3) + 'px)';
+          }, { passive: true });
+          (function loop() {
+            rx += (x - rx) * 0.16; ry += (y - ry) * 0.16;
+            const half = ring.classList.contains('is-hover') ? 29 : 17;
+            ring.style.transform = 'translate(' + (rx - half) + 'px,' + (ry - half) + 'px)';
+            requestAnimationFrame(loop);
+          })();
+          document.querySelectorAll('a, button, summary, [data-hover]').forEach((el) => {
+            el.addEventListener('mouseenter', () => ring.classList.add('is-hover'));
+            el.addEventListener('mouseleave', () => ring.classList.remove('is-hover'));
+          });
+        } else {
+          if (dot) dot.style.display = 'none';
+          if (ring) ring.style.display = 'none';
+        }
       })();
     </script>
-    <style>
-      #site-header.is-scrolled {
-        box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 12px 32px -16px rgb(0 0 0 / 0.18);
-      }
-    </style>
   </body>
 </html>

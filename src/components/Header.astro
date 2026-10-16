@@ -1,65 +1,127 @@
 ---
 import { portfolioData } from '@/data/portfolio';
-import Icon from './Icon.astro'; const { socialLinks } = portfolioData;
---- <nav class="container-custom" aria-label="Navegação principal"> <div class="flex items-center justify-between h-16 lg:h-20"> <!-- Logo / Name --> <div class="flex items-center gap-3"> <a href="#inicio" class="text-clamp-lg font-semibold text-neutral-900 dark:text-neutral-50 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-950 rounded-md px-2 py-1 -mx-2 -my-1" aria-label="Ir para o início - Lucas Bertol" > <span class="gradient-text">Lucas Bertol</span> </a> <span class="hidden sm:inline-flex items-center px-2 py-0.5 text-xs font-medium text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 rounded-full border border-neutral-200 dark:border-neutral-700"> Desenvolvedor Fullstack </span> </div> <!-- Desktop Navigation --> <div class="hidden lg:flex items-center gap-8"> <a href="#sobre" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Sobre </a> <a href="#habilidades" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Habilidades </a> <a href="#experiencia" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Experiência </a> <a href="#projetos" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Projetos </a> <a href="#contato" class="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-neutral-900 dark:after:bg-neutral-50 hover:after:w-full after:transition-all" > Contato </a> </div> <!-- Right side: Theme toggle + Social links + Mobile menu button --> <div class="flex items-center gap-4"> <!-- Social Links (Desktop) --> <div class="hidden md:flex items-center gap-2"> {socialLinks.slice(0, 2).map((social) => ( <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.ariaLabel} class="p-2 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50" > <Icon name={social.icon} class="w-5 h-5" /> </a> ))} </div> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" type="button" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="mobile-menu" class="lg:hidden p-2 rounded-lg text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50" > <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"> <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /> </svg> </button> </div> </div> <!-- Mobile Menu --> <div id="mobile-menu" class="lg:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-out glass border-t border-neutral-900/[0.06] dark:border-neutral-50/[0.08]" role="navigation" aria-label="Menu mobile" > <div class="container-custom py-6 space-y-4"> <nav class="flex flex-col space-y-2"> <a href="#sobre" class="mobile-nav-link">Sobre</a> <a href="#habilidades" class="mobile-nav-link">Habilidades</a> <a href="#experiencia" class="mobile-nav-link">Experiência</a> <a href="#projetos" class="mobile-nav-link">Projetos</a> <a href="#contato" class="mobile-nav-link">Contato</a> </nav> <div class="divider my-4" /> <div class="flex items-center gap-4"> {socialLinks.map((social) => ( <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.ariaLabel} class="p-2 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800" > <Icon name={social.icon} class="w-5 h-5" /> </a> ))} </div> </div> </div>
-</nav> <script is:inline>
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const ICON_OPEN = '<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>';
-  const ICON_CLOSED = '<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>';
-  function toggleMobileMenu() {
-    const isOpen = mobileMenuBtn && mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-    if (mobileMenuBtn) {
-      mobileMenuBtn.setAttribute('aria-expanded', String(!isOpen));
+import Icon from './Icon.astro';
+const { email } = portfolioData;
+---
+
+<div class="wrap">
+  <div class="flex items-center justify-between gap-4 h-16 lg:h-[72px]">
+    <!-- Marca editorial -->
+    <a href="#inicio" class="flex items-baseline gap-2 min-w-0" aria-label="Voltar ao início — Lucas Bertol">
+      <span class="font-display font-black tracking-[-0.04em] text-lg leading-none uppercase">Bertol<span aria-hidden="true">®</span></span>
+      <span class="hidden md:inline font-mono text-[0.62rem] uppercase tracking-[0.22em] text-neutral-500 dark:text-neutral-400 border border-neutral-900/15 dark:border-neutral-50/15 rounded-full px-2.5 py-1">Desenvolvedor Fullstack</span>
+    </a>
+
+    <!-- Meta central (revista) -->
+    <p class="hidden lg:block font-mono text-[0.65rem] uppercase tracking-[0.22em] text-neutral-500 dark:text-neutral-400">
+      Portfólio · 2026 · <span id="masthead-clock" class="tabular-nums">00:00</span>
+    </p>
+
+    <div class="flex items-center gap-2 sm:gap-3">
+      <a href={`mailto:${email}`} class="hidden sm:inline-flex btn-secondary !px-5 !py-2.5 !text-[0.8rem]">
+        Contato
+        <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+      <button
+        id="index-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="index-overlay"
+        class="inline-flex items-center gap-2.5 rounded-full border border-neutral-900/20 dark:border-neutral-50/20 px-5 py-2.5 font-mono text-[0.75rem] font-bold uppercase tracking-[0.16em] hover:bg-neutral-900 hover:text-neutral-50 dark:hover:bg-neutral-50 dark:hover:text-neutral-900 transition-colors"
+      >
+        <span id="index-toggle-label">Índice</span>
+        <span class="flex flex-col gap-[5px]" aria-hidden="true">
+          <span class="block h-[1.5px] w-5 bg-current"></span>
+          <span class="block h-[1.5px] w-5 bg-current"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay: índice gigante numerado -->
+<div id="index-overlay" class="fixed inset-0 z-[105]" role="dialog" aria-modal="true" aria-label="Índice do portfólio">
+  <div class="absolute inset-0 bg-neutral-950/60 backdrop-blur-sm" data-close-index aria-hidden="true"></div>
+  <div class="index-panel absolute inset-x-0 top-0 bg-neutral-50 dark:bg-neutral-950 border-b border-neutral-900/10 dark:border-neutral-50/10">
+    <div class="wrap py-8 sm:py-12">
+      <div class="flex items-center justify-between mb-8">
+        <p class="mono-label">Índice — 06 seções</p>
+        <button type="button" data-close-index class="mono-label link-sweep" aria-label="Fechar índice">Fechar ✕</button>
+      </div>
+      <nav aria-label="Índice completo">
+        <ol class="divide-y divide-neutral-900/10 dark:divide-neutral-50/10 border-y border-neutral-900/10 dark:border-neutral-50/10">
+          {[
+            { n: '01', href: '#inicio', t: 'Início', d: 'Apresentação' },
+            { n: '02', href: '#sobre', t: 'Sobre', d: 'Formação e certificações' },
+            { n: '03', href: '#habilidades', t: 'Habilidades', d: 'Tecnologias por categoria' },
+            { n: '04', href: '#experiencia', t: 'Experiência', d: 'NCC-UFSM' },
+            { n: '05', href: '#projetos', t: 'Projetos', d: 'NetCommander · uniMarket' },
+            { n: '06', href: '#contato', t: 'Contato', d: 'Email e mensagem' },
+          ].map((item) => (
+            <li>
+              <a href={item.href} data-close-index class="group grid grid-cols-[3.2rem_1fr_auto] sm:grid-cols-[5rem_1fr_1fr_auto] items-center gap-3 sm:gap-6 py-4 sm:py-5 hover:pl-2 transition-all duration-300">
+                <span class="font-mono text-xs font-bold text-neutral-400 dark:text-neutral-500">{item.n}</span>
+                <span class="font-display font-extrabold uppercase tracking-[-0.02em] leading-none text-2xl sm:text-4xl">{item.t}</span>
+                <span class="hidden sm:block font-mono text-[0.7rem] uppercase tracking-[0.14em] text-neutral-500 dark:text-neutral-400">{item.d}</span>
+                <Icon name="arrow-right" class="w-5 h-5 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all" />
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const toggle = document.getElementById('index-toggle');
+    const label = document.getElementById('index-toggle-label');
+    const overlay = document.getElementById('index-overlay');
+    const clock = document.getElementById('masthead-clock');
+    function setOpen(open) {
+      if (!overlay || !toggle) return;
+      overlay.classList.toggle('is-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      toggle.setAttribute('aria-expanded', String(open));
+      if (label) label.textContent = open ? 'Fechar' : 'Índice';
+      if (open) {
+        const first = overlay.querySelector('a');
+        if (first) first.focus();
+      }
     }
-    if (!isOpen) {
-      if (mobileMenu) {
-        mobileMenu.classList.remove('max-h-0', 'opacity-0');
-        mobileMenu.classList.add('max-h-96', 'opacity-100');
-      }
-      if (mobileMenuBtn) {
-        mobileMenuBtn.innerHTML = ICON_OPEN;
-      }
-    } else {
-      if (mobileMenu) {
-        mobileMenu.classList.add('max-h-0', 'opacity-0');
-        mobileMenu.classList.remove('max-h-96', 'opacity-100');
-      }
-      if (mobileMenuBtn) {
-        mobileMenuBtn.innerHTML = ICON_CLOSED;
-      }
+    if (toggle && overlay) {
+      toggle.addEventListener('click', () => {
+        setOpen(!overlay.classList.contains('is-open'));
+      });
+      overlay.querySelectorAll('[data-close-index]').forEach((el) => {
+        el.addEventListener('click', () => setOpen(false));
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) setOpen(false);
+      });
     }
-  }
-  if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-  }
-  document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
-    link.addEventListener('click', function() {
-      if (mobileMenuBtn && mobileMenuBtn.getAttribute('aria-expanded') === 'true') {
-        toggleMobileMenu();
-      }
+    // Relógio da banca (só decorativo, hora local)
+    function tick() {
+      if (!clock) return;
+      const d = new Date();
+      clock.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    }
+    tick();
+    setInterval(tick, 30000);
+    // Smooth scroll com offset do masthead
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        const id = anchor.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          const h = document.getElementById('site-header');
+          const off = h ? h.offsetHeight : 0;
+          window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
+        }
+      });
     });
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && mobileMenuBtn && mobileMenuBtn.getAttribute('aria-expanded') === 'true') {
-      toggleMobileMenu();
-    }
-  });
-  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-    anchor.addEventListener('click', function(e) {
-      const targetId = anchor.getAttribute('href');
-      if (!targetId || targetId === '#') {
-        return;
-      }
-      const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        const headerEl = document.querySelector('header');
-        const headerHeight = headerEl ? headerEl.offsetHeight : 0;
-        const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
-        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-      }
-    });
-  });
-</script> <style> .mobile-nav-link { @apply px-4 py-3 text-base font-medium text-neutral-600 dark:text-neutral-400; @apply hover:text-neutral-900 dark:hover:text-neutral-50; @apply rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800; @apply transition-colors duration-200; @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-50; }
-</style>
+  })();
+</script>

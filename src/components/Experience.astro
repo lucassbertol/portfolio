@@ -1,5 +1,101 @@
 ---
 import { portfolioData } from '@/data/portfolio';
-import Icon from './Icon.astro'; const { experience } = portfolioData;
---- <section id="experiencia" class="section relative bg-neutral-950" aria-labelledby="experience-title"> <div class="container-custom relative z-10"> <header class="max-w-3xl mx-auto mb-14 lg:mb-20 text-center"> <p data-reveal class="eyebrow mb-5">Trajetória</p> <h2 id="experience-title" data-reveal style="--reveal-delay: 80ms" class="section-title mb-4">Experiência Profissional</h2> <p data-reveal style="--reveal-delay: 140ms" class="section-subtitle mx-auto">Minha trajetória prática em desenvolvimento e pesquisa.</p> </header> <div class="max-w-3xl mx-auto space-y-6"> {experience.map((exp, index) => ( <article data-reveal class="card card-interactive" style={`--reveal-delay: ${index * 100}ms`}> <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-5"> <div> <div class="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400 mb-2"> <Icon name="server" class="w-4 h-4" /> <span>{exp.period}</span> </div> <h3 class="text-clamp-xl font-semibold text-neutral-900 dark:text-neutral-50 mb-1">{exp.role}</h3> <p class="text-clamp-base font-medium text-neutral-700 dark:text-neutral-300">{exp.company}</p> <p class="text-sm text-neutral-500 dark:text-neutral-400 flex items-center gap-1 mt-1"> <Icon name="globe" class="w-3.5 h-3.5" /> {exp.location} </p> </div> </div> <div class="max-w-none mb-6"> <ul class="space-y-2"> {exp.description.map((desc) => ( <li class="flex items-start gap-3 text-clamp-base text-neutral-600 dark:text-neutral-400 leading-relaxed"> <Icon name="check" class="w-5 h-5 text-neutral-400 dark:text-neutral-500 flex-shrink-0 mt-0.5" /> <span>{desc}</span> </li> ))} </ul> </div> <div class="flex flex-wrap gap-2 pt-4 border-t border-neutral-200 dark:border-neutral-800"> {exp.technologies.map((tech) => ( <span class="tag tag-primary">{tech}</span> ))} </div> </article> ))} </div> </div>
+import Icon from './Icon.astro';
+const { experience } = portfolioData;
+---
+
+<section id="experiencia" class="relative" aria-labelledby="exp-title">
+  <div class="wrap py-20 sm:py-24 lg:py-32">
+    <div class="mb-12 lg:mb-16">
+      <div>
+        <p data-reveal class="mono-label mb-3">04 — Experiência</p>
+        <h2 id="exp-title" data-reveal style="--reveal-delay:80ms" class="display-section">Experiência profissional</h2>
+      </div>
+    </div>
+
+    <ol id="exp-timeline" class="relative">
+      <!-- Linha da timeline: trilho estático + preenchimento que desenha com o scroll -->
+      <span class="absolute top-2 bottom-2 left-[0.65rem] lg:left-1/2 lg:-translate-x-1/2 w-0.5 bg-neutral-900/15 dark:bg-neutral-50/15" aria-hidden="true"></span>
+      <span id="exp-line-fill" class="absolute top-2 bottom-2 left-[0.65rem] lg:left-1/2 lg:-translate-x-1/2 w-0.5 bg-neutral-900 dark:bg-neutral-50" aria-hidden="true"></span>
+
+      {experience.map((exp, ei) => (
+        <li data-reveal="wipe" class="relative pl-10 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-14 pb-12 last:pb-0">
+          <!-- Marcador -->
+          <span class="timeline-dot absolute top-2 left-[0.65rem] lg:left-1/2 -translate-x-1/2 grid place-items-center w-5 h-5 rounded-full bg-neutral-900 dark:bg-neutral-50 ring-4 ring-neutral-50 dark:ring-neutral-950" aria-hidden="true">
+            <span class="w-1.5 h-1.5 rounded-full bg-neutral-50 dark:bg-neutral-900"></span>
+          </span>
+
+          <!-- Cartão (alterna o lado no desktop) -->
+          <article class:list={['lg:row-start-1 rounded-2xl bg-neutral-900 text-neutral-50 p-6 sm:p-8 shadow-[var(--shadow-lift)]', ei % 2 === 0 ? 'lg:col-start-1' : 'lg:col-start-2']}>
+            <div class="flex flex-wrap items-center gap-2.5 mb-4">
+              <span class="inline-flex items-center gap-1.5 font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] border border-current rounded-full px-3.5 py-1.5 opacity-90">
+                <Icon name="server" class="w-3.5 h-3.5" /> {exp.period}
+              </span>
+              <span class="inline-flex items-center font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] bg-neutral-50 text-neutral-900 rounded-full px-3.5 py-1.5">Cargo atual</span>
+            </div>
+            <h3 class="font-display font-extrabold tracking-[-0.02em] leading-tight text-2xl sm:text-[1.7rem]">{exp.role}</h3>
+            <p class="mt-1.5 font-semibold opacity-80">{exp.company} · {exp.location}</p>
+            <ul class="mt-5 space-y-2.5">
+              {exp.description.map((d) => (
+                <li class="flex items-start gap-3 text-[0.95rem] leading-relaxed opacity-90">
+                  <Icon name="check" class="w-4 h-4 mt-1 shrink-0 opacity-60" />
+                  <span>{d}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          <!-- Espaçador do lado oposto -->
+          <div class:list={['hidden lg:block lg:row-start-1', ei % 2 === 0 ? 'lg:col-start-2' : 'lg:col-start-1']} aria-hidden="true"></div>
+        </li>
+      ))}
+
+      <!-- Marco de formação -->
+      <li data-reveal class="relative pl-10 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-14" style="--reveal-delay:70ms">
+        <span class="timeline-dot absolute bottom-2 left-[0.65rem] lg:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full border-2 border-dashed border-neutral-400 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-950" aria-hidden="true"></span>
+        <div class="lg:col-start-2 lg:row-start-1 rounded-2xl border border-neutral-900/15 dark:border-neutral-50/15 p-6">
+          <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] opacity-60 mb-2">Formação</p>
+          <p class="font-display font-extrabold leading-tight">Sistemas de Informação — UFSM</p>
+          <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Graduação em andamento · conclusão prevista 07/2028</p>
+        </div>
+        <div class="hidden lg:block lg:col-start-1 lg:row-start-1" aria-hidden="true"></div>
+      </li>
+    </ol>
+  </div>
 </section>
+
+<script is:inline>
+  // Linha da timeline desenha conforme o scroll (só propriedade `scale`, sem layout shift).
+  (() => {
+    const list = document.getElementById('exp-timeline');
+    const fill = document.getElementById('exp-line-fill');
+    if (!list || !fill) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      fill.style.scale = '1 1';
+      return;
+    }
+    let finished = false;
+    let ticking = false;
+    function paint() {
+      const rect = list.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const total = rect.height || 1;
+      const seen = Math.min(Math.max(vh * 0.65 - rect.top, 0), total);
+      fill.style.scale = '1 ' + (seen / total).toFixed(3);
+      if (seen >= total) {
+        finished = true;
+        window.removeEventListener('scroll', schedule);
+        window.removeEventListener('resize', schedule);
+      }
+      ticking = false;
+    }
+    function schedule() {
+      if (finished || ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(paint);
+    }
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    schedule();
+  })();
+</script>

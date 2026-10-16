@@ -1,6 +1,7 @@
 export interface SkillCategory {
   name: string;
-  skills: string[];
+  primary: string[];
+  secondary: string[];
   icon?: string;
 }
 
@@ -43,28 +44,44 @@ export const portfolioData = {
 
   skills: [
     {
-      name: 'Backend',
-      skills: ['Python', 'Django', 'PHP', 'Node.js', 'MySQL', 'PostgreSQL'],
+      name: 'Linguagens',
+      primary: ['Python', 'JavaScript'],
+      secondary: ['TypeScript', 'PHP'],
     },
     {
-      name: 'Frontend',
-      skills: ['React', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
+      name: 'Front-end',
+      primary: ['React', 'HTML', 'CSS'],
+      secondary: ['Tailwind CSS'],
     },
     {
-      name: 'Ferramentas & DevOps',
-      skills: ['Git', 'Docker', 'GitHub Actions', 'Linux', 'VS Code'],
+      name: 'Back-end',
+      primary: ['Django', 'Node.js'],
+      secondary: [],
+    },
+    {
+      name: 'Banco de Dados',
+      primary: ['SQL', 'MySQL'],
+      secondary: ['PostgreSQL', 'SQLite'],
     },
     {
       name: 'Testes & Qualidade',
-      skills: ['Pytest', 'Testes Unitários', 'Testes de Integração', 'TDD'],
+      primary: ['Pytest', 'Testes Unitários'],
+      secondary: ['Testes de Integração', 'TDD'],
+    },
+    {
+      name: 'DevOps & Ferramentas',
+      primary: ['Git', 'Docker', 'Linux'],
+      secondary: ['GitHub Actions'],
+    },
+    {
+      name: 'Cloud & IA',
+      primary: ['Agentic AI', 'LLMs'],
+      secondary: ['Cloud Fundamentals', 'Arquitetura Cloud'],
     },
     {
       name: 'Dados & Análise',
-      skills: ['Power BI', 'Excel', 'Pandas', 'Análise de Dados'],
-    },
-    {
-      name: 'IA & Cloud',
-      skills: ['Agentic AI', 'Cloud Fundamentals', 'Arquitetura Cloud', 'LLMs'],
+      primary: ['Pandas'],
+      secondary: ['Power BI', 'Excel', 'Análise de Dados'],
     },
   ] as SkillCategory[],
 
@@ -77,7 +94,7 @@ export const portfolioData = {
 
   experience: [
     {
-      role: 'Bolsista de Desenvolvimento',
+      role: 'Bolsista',
       company: 'NCC - Núcleo de Ciência da Computação',
       location: 'UFSM - Santa Maria, RS',
       period: '08/2025 - Atual',
@@ -96,7 +113,7 @@ export const portfolioData = {
       period: '08/2025',
       description: 'Sistema de gerenciamento remoto de laboratórios de informática para o NCC-UFSM.',
       longDescription: 'Aplicação desktop em Python para controle simultâneo de ~80 computadores em 3 laboratórios e 1 sala de estudos. Permite execução de comandos remotos, monitoramento de status em tempo real, distribuição de arquivos e atualizações de software.',
-      technologies: ['Python', 'Socket', 'Threading', 'SQLite', 'CustomTkinter', 'Pytest'],
+      technologies: ['Python', 'Django', 'Pytest', 'SQL', 'HTML', 'CSS', 'React'],
       highlights: [
         'Arquitetura cliente-servidor com comunicação via sockets TCP',
         'Gerenciamento concorrente de 80+ conexões simultâneas',
@@ -111,7 +128,7 @@ export const portfolioData = {
       period: '06/2026',
       description: 'Marketplace universitário completo construído do zero.',
       longDescription: 'Plataforma web fullstack para compra e venda de itens entre estudantes. Inclui sistema de autenticação, modelagem relacional de banco de dados, publicação e gestão de anúncios, busca e filtros, e suíte de testes automatizados.',
-      technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML5', 'CSS3', 'Docker', 'Pytest'],
+      technologies: ['PHP', 'SQL', 'HTML', 'CSS', 'JavaScript'],
       highlights: [
         'Autenticação segura com hash de senhas e sessões',
         'Modelagem relacional normalizada (3FN)',
