@@ -1,11 +1,9 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: 'https://lucasbertol.dev.br',
   base: '/',
   output: 'static',
-  integrations: [tailwind()],
   vite: {
     css: {
       preprocessorOptions: {
