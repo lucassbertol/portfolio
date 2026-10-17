@@ -20,7 +20,13 @@ const { email, socialLinks } = portfolioData;
             <span class="mono-label">Clique para copiar</span>
           </div>
           <button type="button" data-copy-email={email} class="w-full text-left group border-t border-b border-dashed border-neutral-900/25 dark:border-neutral-50/25 py-4 hover:translate-x-1 transition-transform" aria-label="Copiar endereço de email">
-            <span class="mt-1 flex items-center justify-between gap-3 font-display font-extrabold text-lg sm:text-xl tracking-[-0.01em] break-all">{email} <span class="copy-label shrink-0 font-mono text-[0.65rem] uppercase tracking-[0.16em] border border-current rounded-full px-3 py-1.5 group-hover:bg-neutral-900 group-hover:text-neutral-50 dark:group-hover:bg-neutral-50 dark:group-hover:text-neutral-900 transition-colors">Copiar</span></span>
+            <!-- whitespace-nowrap: o endereço nunca quebra no meio. Se não couber
+                 ao lado do selo "Copiar", o selo desce de linha (flex-wrap) em vez
+                 de o email partir. A fonte escala com a viewport para caber. -->
+            <span class="mt-1 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 font-display font-extrabold tracking-[-0.01em]">
+              <span class="whitespace-nowrap text-[clamp(0.95rem,4.6vw,1.25rem)]">{email}</span>
+              <span class="copy-label shrink-0 font-mono text-[0.65rem] uppercase tracking-[0.16em] border border-current rounded-full px-3 py-1.5 group-hover:bg-neutral-900 group-hover:text-neutral-50 dark:group-hover:bg-neutral-50 dark:group-hover:text-neutral-900 transition-colors">Copiar</span>
+            </span>
           </button>
           <ul class="mt-4 grid sm:grid-cols-3 gap-2">
             {socialLinks.filter((s) => s.icon !== 'email').map((s, si) => (
