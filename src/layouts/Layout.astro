@@ -12,7 +12,7 @@ const ogImage = image ? new URL(image, Astro.site).href : new URL('/og-image.png
 ---
 
 <!doctype html>
-<html lang="pt-BR" class="h-full">
+<html lang="pt-BR" class="h-full dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,6 +69,20 @@ const ogImage = image ? new URL(image, Astro.site).href : new URL('/og-image.png
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Sem JS o reveal nunca dispara e todo [data-reveal] ficaria em
+         opacity: 0 — a página inteira apareceria vazia (e invisível para
+         indexadores). Este bloco garante conteúdo legível sem script.
+         O cursor customizado também depende do JS para ser posicionado. -->
+    <noscript>
+      <style>
+        [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+        #cursor-dot, #cursor-ring { display: none !important; }
+        .timeline-dot { scale: 1 !important; opacity: 1 !important; }
+        #exp-line-fill { scale: 1 1 !important; }
+        #to-top { display: none; }
+      </style>
+    </noscript>
   </head>
   <body class="h-full flex flex-col grain text-neutral-900 dark:text-neutral-50 bg-neutral-50 dark:bg-neutral-950">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[130] focus:px-4 focus:py-2 focus:bg-neutral-900 focus:text-neutral-50 dark:focus:bg-neutral-50 dark:focus:text-neutral-900 focus:rounded-full text-sm font-medium">
@@ -88,12 +102,12 @@ const ogImage = image ? new URL(image, Astro.site).href : new URL('/og-image.png
     <nav id="side-index" class="hidden xl:flex fixed left-0 top-0 h-svh w-[76px] flex-col items-center justify-between py-6 border-r border-neutral-900/10 dark:border-neutral-50/10 bg-neutral-50/70 dark:bg-neutral-950/70 backdrop-blur-xl z-[95]" aria-label="Índice de seções">
       <span class="font-mono text-[0.62rem] tracking-[0.25em] uppercase opacity-60 [writing-mode:vertical-rl] rotate-180">Portfólio — 2026</span>
       <ol class="flex flex-col gap-1 relative" id="side-index-list">
-        <li><a href="#inicio" data-spy="inicio" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">01</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Início</span></a></li>
-        <li><a href="#sobre" data-spy="sobre" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">02</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Perfil</span></a></li>
-        <li><a href="#habilidades" data-spy="habilidades" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">03</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Stack</span></a></li>
-        <li><a href="#experiencia" data-spy="experiencia" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">04</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Campo</span></a></li>
-        <li><a href="#projetos" data-spy="projetos" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">05</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Casos</span></a></li>
-        <li><a href="#contato" data-spy="contato" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold">06</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Contato</span></a></li>
+        <li><a href="#inicio" data-spy="inicio" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold opacity-45 group-[.is-active]:opacity-100 transition-opacity duration-300">01</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Início</span></a></li>
+        <li><a href="#sobre" data-spy="sobre" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold opacity-45 group-[.is-active]:opacity-100 transition-opacity duration-300">02</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Perfil</span></a></li>
+        <li><a href="#habilidades" data-spy="habilidades" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold opacity-45 group-[.is-active]:opacity-100 transition-opacity duration-300">03</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Stack</span></a></li>
+        <li><a href="#experiencia" data-spy="experiencia" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold opacity-45 group-[.is-active]:opacity-100 transition-opacity duration-300">04</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Campo</span></a></li>
+        <li><a href="#projetos" data-spy="projetos" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold opacity-45 group-[.is-active]:opacity-100 transition-opacity duration-300">05</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Casos</span></a></li>
+        <li><a href="#contato" data-spy="contato" class="spy-link group flex flex-col items-center gap-1 px-3 py-2"><span class="font-mono text-[0.65rem] font-bold opacity-45 group-[.is-active]:opacity-100 transition-opacity duration-300">06</span><span class="h-10 w-px origin-top scale-y-[0.6] bg-neutral-900/20 dark:bg-neutral-50/20 group-[.is-active]:bg-neutral-900 dark:group-[.is-active]:bg-neutral-50 group-[.is-active]:scale-y-100 transition-transform" aria-hidden="true"></span><span class="sr-only">Contato</span></a></li>
       </ol>
       <span id="side-percent" class="font-mono text-[0.62rem] font-bold tabular-nums">0%</span>
     </nav>
@@ -176,6 +190,8 @@ const ogImage = image ? new URL(image, Astro.site).href : new URL('/og-image.png
         }
 
         // Magnetismo sutil nos botões: desloca poucos px em direção ao cursor.
+        // A classe is-magnetic tira `transform` da transition para o botão
+        // acompanhar o cursor sem atraso (ver .btn.is-magnetic no CSS).
         const magnetPx = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--magnetic-px')) || 3;
         const fineBtn = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
         if (!reduceMotion && fineBtn) {
@@ -184,9 +200,13 @@ const ogImage = image ? new URL(image, Astro.site).href : new URL('/og-image.png
               const r = btn.getBoundingClientRect();
               const x = ((e.clientX - r.left) / r.width - 0.5) * 2 * magnetPx;
               const y = ((e.clientY - r.top) / r.height - 0.5) * 2 * magnetPx;
+              btn.classList.add('is-magnetic');
               btn.style.transform = 'translate(' + x.toFixed(1) + 'px, ' + y.toFixed(1) + 'px)';
             });
-            btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+            btn.addEventListener('mouseleave', () => {
+              btn.style.transform = '';
+              btn.classList.remove('is-magnetic');
+            });
           });
         }
 

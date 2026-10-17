@@ -20,7 +20,7 @@ const { projects, github } = portfolioData;
         <article data-reveal="wipe" style={`--reveal-delay:${i * 70}ms`} class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
           <!-- Painel de tecnologias -->
           <div class={`lg:col-span-5 order-2 ${i % 2 === 1 ? 'lg:order-2' : 'lg:order-none'}`}>
-            <div class="sheen relative h-full min-h-[16rem] rounded-2xl overflow-hidden border border-neutral-50/15 bg-neutral-900 flex flex-col p-6 sm:p-8">
+            <div class="sheen relative h-full min-h-[16rem] rounded-2xl overflow-hidden border border-neutral-50/15 bg-neutral-900 flex flex-col p-6 sm:p-8 transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-neutral-50/25">
               <div class="blueprint absolute inset-0" aria-hidden="true"></div>
               <div class="relative flex items-center justify-between gap-4">
                 <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-neutral-400">Projeto 0{i + 1} / 0{projects.length}</span>
@@ -74,7 +74,7 @@ const { projects, github } = portfolioData;
               )}
               {p.link && (
                 <a href={p.link} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-neutral-50/30 font-semibold text-sm px-6 py-3 hover:bg-neutral-50 hover:text-neutral-950 transition-colors">
-                  Abrir ao vivo <Icon name="arrow-right" class="w-4 h-4" />
+                  Abrir ao vivo <Icon name="arrow-right" class="arrow-nudge w-4 h-4" />
                 </a>
               )}
             </div>
@@ -86,7 +86,7 @@ const { projects, github } = portfolioData;
     <div data-reveal class="mt-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 rounded-2xl border border-neutral-50/15 px-6 py-6 sm:px-8">
       <p class="text-lg text-neutral-300">Veja mais projetos e contribuições no GitHub.</p>
       <a href={github} target="_blank" rel="noopener noreferrer" class="inline-flex shrink-0 items-center gap-2 rounded-full border border-neutral-50/30 px-7 py-3.5 text-sm font-semibold hover:bg-neutral-50 hover:text-neutral-950 transition-colors">
-        Ver mais no GitHub <Icon name="arrow-right" class="w-4 h-4" />
+        Ver mais no GitHub <Icon name="arrow-right" class="arrow-nudge w-4 h-4" />
       </a>
     </div>
   </div>

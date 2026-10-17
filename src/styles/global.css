@@ -16,21 +16,21 @@
     --duration-fast: 200ms;   /* hovers, foco, micro-feedback */
     --duration-base: 320ms;   /* transições de cor, painéis, abas */
     --duration-slow: 600ms;   /* entradas ao rolar (teto recomendado) */
+    --duration-track: 90ms;   /* rastreamento do cursor (tilt, magnetismo) */
     --motion-distance: 20px;  /* deslocamento padrão do reveal (12–24px) */
     --motion-stagger: 60ms;   /* passo entre itens de lista (40–80ms) */
     --motion-lift: 4px;       /* elevação máxima no hover de cards */
-    --motion-zoom: 1.03;      /* zoom máximo de mídia no hover */
+    --motion-nudge: 4px;      /* avanço das setas no hover */
     /* ---- 3D discreto (CSS 3D, sem WebGL): para intensificar o tilt dos
        cards, suba --card-tilt-max (graus); --sheen-alpha controla o
        brilho que segue o cursor nos projetos. Cores herdam o tema. */
     --card-tilt-max: 5deg;    /* tilt dos cards de habilidades */
     --sheen-alpha: 0.07;      /* brilho que segue o cursor (projetos) */
-    /* ---- VFX sutis: poeira do hero, brilho do título, magnetismo,
-       spotlight. Para acalmar: reduza alphas/px ou zere durações. */
+    /* ---- VFX sutis: poeira do hero, magnetismo, spotlight. Para acalmar:
+       reduza alphas/px ou zere durações. */
     --dust-count: 28;         /* partículas no hero (mobile usa metade) */
     --dust-speed: 0.25;       /* deriva base em px/frame */
     --dust-alpha: 0.4;        /* opacidade máxima das partículas */
-    --shine-duration: 1.4s;   /* varredura única no título do hero */
     --magnetic-px: 3;         /* deslocamento máximo dos botões */
     --spotlight-size: 220px;  /* diâmetro do spotlight nas bordas */
     --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -12px rgb(0 0 0 / 0.12);
@@ -172,6 +172,14 @@
     transition: transform var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast), border-color var(--duration-fast), box-shadow var(--duration-base);
   }
   .btn:active { transform: scale(0.98); }
+  /* Magnetismo: o JS escreve um transform inline a cada mousemove. Com
+     `transform` na transition esse valor é interpolado a 200ms e o botão
+     fica arrastado atrás do cursor em vez de grudado nele. No estado
+     is-magnetic a transition fica só com cor/sombra, então o
+     deslocamento é imediato e o ímã ainda entra/sai com suavidade. */
+  .btn.is-magnetic {
+    transition: background-color var(--duration-fast), border-color var(--duration-fast), box-shadow var(--duration-base);
+  }
   .btn-primary {
     @apply btn bg-neutral-900 text-neutral-50 dark:bg-neutral-50 dark:text-neutral-900;
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 12px 32px -12px rgb(0 0 0 / 0.35);
@@ -257,6 +265,22 @@
   [data-reveal="fade"] { transform: none; clip-path: none; }
   [data-reveal].is-visible { opacity: 1; transform: none; clip-path: inset(0 0 0% 0); }
 
+  /* Título do hero: wipe editorial em vez de fade só onde há ponteiro fino.
+     O clip-path fica no tier de paint e é caro em GPU móvel fraca (ver nota
+     abaixo), então no toque o título mantém o fade simples. */
+  @media (min-width: 1024px) and (pointer: fine) {
+    #hero-title[data-reveal="fade"] { transform: scale(0.985); clip-path: inset(0 0 100% 0); }
+    #hero-title[data-reveal="fade"].is-visible { transform: none; clip-path: inset(0 0 0% 0); }
+  }
+
+  /* Seta que avança no hover: feedback de direção comum a botões e links.
+     Só transform — não custa layout. Cobre `<a>` (links de projeto, redes)
+     e `.btn`, que inclui o botão de envio (um <button>, não um <a>). */
+  .arrow-nudge { transition: transform var(--duration-fast) var(--ease-out-expo); }
+  .group:hover > .arrow-nudge,
+  a:hover > .arrow-nudge,
+  .btn:hover > .arrow-nudge { transform: translateX(var(--motion-nudge)); }
+
   /* Mobile/pointer grosseiro: reveal só com opacity + translate.
      O clip-path anima no tier de paint e, sobre cards grandes com
      backdrop-blur, força repaint por frame em GPU móvel fraca —
@@ -339,6 +363,12 @@
   #index-overlay.is-open ol > li:nth-child(4) { transition-delay: 210ms; }
   #index-overlay.is-open ol > li:nth-child(5) { transition-delay: 260ms; }
   #index-overlay.is-open ol > li:nth-child(6) { transition-delay: 310ms; }
+
+  /* Índice: as duas barras viram X. Cada barra anda até a metade do gap
+     (1.5px de altura + 5px de gap = 3.25px entre centros). */
+  .burger-bar { transition: transform var(--duration-base) var(--ease-out-expo); }
+  #index-toggle[aria-expanded="true"] .burger-bar:first-child { transform: translateY(3.25px) rotate(45deg); }
+  #index-toggle[aria-expanded="true"] .burger-bar:last-child { transform: translateY(-3.25px) rotate(-45deg); }
   @keyframes toast-in {
     from { opacity: 0; transform: translate(-50%, -14px) scale(0.96); }
     to { opacity: 1; transform: translate(-50%, 0) scale(1); }
@@ -384,7 +414,11 @@
   .tilt-card {
     position: relative;
     transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
-    transition: transform var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast) var(--ease-out-expo);
+    /* transform usa --duration-track (curto) de propósito: o JS reescreve
+       --rx/--ry a cada mousemove, e a 200ms o tilt fica visivelmente
+       atrasado em relação ao cursor. 90ms mantém o rastreamento colado
+       com uma leve suavização. */
+    transition: transform var(--duration-track) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast) var(--ease-out-expo);
   }
   .tilt-card:hover { --lift: calc(var(--motion-lift) * -1); }
 
@@ -403,9 +437,9 @@
     transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
   }
   /* No hover a duração do reveal (600ms) deixaria o tilt lento; o hover
-     assume a transition rápida, que é o que o mouse espera. */
+     assume o rastreamento curto, que é o que o mouse espera. */
   .tilt-card[data-reveal]:hover {
-    transition: transform var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast) var(--ease-out-expo);
+    transition: transform var(--duration-track) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast) var(--ease-out-expo);
     transition-delay: 0ms;
   }
   /* Spotlight: a borda ilumina só perto do cursor */

@@ -34,7 +34,7 @@ const { email, socialLinks } = portfolioData;
                 <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.name} class="flex items-center gap-3 border border-neutral-900/15 dark:border-neutral-50/15 rounded-xl px-4 py-3 text-sm font-semibold hover:bg-neutral-900 hover:text-neutral-50 dark:hover:bg-neutral-50 dark:hover:text-neutral-900 transition-colors">
                   <Icon name={s.icon} class="w-5 h-5 shrink-0 opacity-70" />
                   <span>{s.name}</span>
-                  <Icon name="arrow-right" class="w-4 h-4 ml-auto opacity-40" />
+                  <Icon name="arrow-right" class="arrow-nudge w-4 h-4 ml-auto opacity-40" />
                 </a>
               </li>
             ))}
@@ -75,7 +75,7 @@ const { email, socialLinks } = portfolioData;
             <button type="submit" class="btn-primary w-full" id="submit-btn">
               <span class="btn-text">Enviar mensagem</span>
               <span class="btn-loading hidden">Enviando...</span>
-              <Icon name="arrow-right" class="w-4 h-4" />
+              <Icon name="arrow-right" class="arrow-nudge w-4 h-4" />
             </button>
             <p class="text-xs text-neutral-500 dark:text-neutral-400 text-center">Ao enviar, você concorda com o processamento dos dados conforme a LGPD.</p>
           </form>

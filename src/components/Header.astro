@@ -20,7 +20,7 @@ const { email } = portfolioData;
     <div class="flex items-center gap-2 sm:gap-3">
       <a href={`mailto:${email}`} class="hidden sm:inline-flex btn-secondary !px-5 !py-2.5 !text-[0.8rem]">
         Contato
-        <Icon name="arrow-right" class="w-4 h-4" />
+        <Icon name="arrow-right" class="arrow-nudge w-4 h-4" />
       </a>
       <button
         id="index-toggle"
@@ -31,8 +31,8 @@ const { email } = portfolioData;
       >
         <span id="index-toggle-label">Índice</span>
         <span class="flex flex-col gap-[5px]" aria-hidden="true">
-          <span class="block h-[1.5px] w-5 bg-current"></span>
-          <span class="block h-[1.5px] w-5 bg-current"></span>
+          <span class="burger-bar block h-[1.5px] w-5 bg-current"></span>
+          <span class="burger-bar block h-[1.5px] w-5 bg-current"></span>
         </span>
       </button>
     </div>
@@ -79,17 +79,29 @@ const { email } = portfolioData;
     const label = document.getElementById('index-toggle-label');
     const overlay = document.getElementById('index-overlay');
     const clock = document.getElementById('masthead-clock');
+    const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    let returnFocusTo = null;
+
     function setOpen(open) {
       if (!overlay || !toggle) return;
+      const wasOpen = overlay.classList.contains('is-open');
+      if (open === wasOpen) return;
       overlay.classList.toggle('is-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
       toggle.setAttribute('aria-expanded', String(open));
       if (label) label.textContent = open ? 'Fechar' : 'Índice';
       if (open) {
-        const first = overlay.querySelector('a');
+        // Guarda de onde o teclado veio e entra no primeiro item, para o
+        // Tab percorrer só o conteúdo do diálogo (aria-modal="true").
+        returnFocusTo = document.activeElement;
+        const first = overlay.querySelector(FOCUSABLE);
         if (first) first.focus();
+      } else if (returnFocusTo && typeof returnFocusTo.focus === 'function') {
+        returnFocusTo.focus();
+        returnFocusTo = null;
       }
     }
+
     if (toggle && overlay) {
       toggle.addEventListener('click', () => {
         setOpen(!overlay.classList.contains('is-open'));
@@ -98,7 +110,21 @@ const { email } = portfolioData;
         el.addEventListener('click', () => setOpen(false));
       });
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('is-open')) setOpen(false);
+        if (!overlay.classList.contains('is-open')) return;
+        if (e.key === 'Escape') { setOpen(false); return; }
+        if (e.key !== 'Tab') return;
+        // Foco preso: sem isto o Tab sai do overlay e entra na página que
+        // aria-modal="true" promete esconder.
+        const items = Array.from(overlay.querySelectorAll(FOCUSABLE));
+        if (!items.length) return;
+        const idx = items.indexOf(document.activeElement);
+        if (e.shiftKey && (idx <= 0)) {
+          e.preventDefault();
+          items[items.length - 1].focus();
+        } else if (!e.shiftKey && (idx === items.length - 1 || idx === -1)) {
+          e.preventDefault();
+          items[0].focus();
+        }
       });
     }
     // Relógio da banca (só decorativo, hora local)
