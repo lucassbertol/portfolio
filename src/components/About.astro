@@ -5,16 +5,10 @@ const { education, certifications } = portfolioData;
 
 <section id="sobre" class="relative" aria-labelledby="about-title">
   <div class="wrap py-20 sm:py-24 lg:py-32">
-    <!-- Sub-cabeçalho fixo (mobile): elemento curto = fixação longa.
-         Some no desktop, onde o container da esquerda fixa como unidade. -->
-    <div class="lg:hidden sticky top-16 z-10 -mx-5 px-5 sm:-mx-8 sm:px-8 mb-8 -mt-2 py-3 bg-neutral-50/90 dark:bg-neutral-950/90 backdrop-blur-xl border-b border-neutral-900/10 dark:border-neutral-50/10" aria-hidden="true">
-      <p class="mono-label">02 — Sobre mim</p>
-    </div>
     <div class="grid lg:grid-cols-12 gap-8">
-      <!-- Esquerda: título + apresentação fixos juntos enquanto a direita rola.
-           O container é sticky (top-24 mobile / top-28 desktop) e suas colunas
-           internas não precisam de sticky próprio. -->
-      <div class="lg:col-span-9 sticky top-24 lg:top-28">
+      <!-- Esquerda: título + apresentação. No desktop o container é sticky
+           (top-28) para o texto não sair enquanto o card da direita rola. -->
+      <div class="lg:col-span-9 lg:sticky lg:top-28">
         <div class="grid lg:grid-cols-9 gap-8 content-start self-start">
           <div class="lg:col-span-4">
             <p data-reveal class="mono-label mb-3">02 — Sobre</p>
@@ -33,9 +27,14 @@ const { education, certifications } = portfolioData;
         </div>
       </div>
 
-      <!-- Direita: formação + certificações rolam normalmente -->
+      <!-- Direita: formação + certificações no fluxo normal. No mobile as
+           colunas empilham, então o card já cai logo abaixo da apresentação. -->
       <div class="lg:col-span-3">
-        <div data-reveal="lateral-r" style="--reveal-delay:160ms" class="border border-neutral-900/15 dark:border-neutral-50/15 rounded-2xl bg-white/60 dark:bg-neutral-900/50 backdrop-blur overflow-hidden">
+        <div
+          data-reveal="lateral-r"
+          style="--reveal-delay:160ms"
+          class="border border-neutral-900/15 dark:border-neutral-50/15 rounded-2xl bg-white/60 dark:bg-neutral-900/50 backdrop-blur overflow-hidden"
+        >
           <div class="px-6 pt-6 pb-4 border-b border-dashed border-neutral-900/20 dark:border-neutral-50/20">
             <p class="mono-label">Formação acadêmica</p>
             <p class="mt-2 font-display font-extrabold uppercase tracking-[-0.02em] leading-tight">{education.degree}</p>

@@ -387,6 +387,27 @@
     transition: transform var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast) var(--ease-out-expo);
   }
   .tilt-card:hover { --lift: calc(var(--motion-lift) * -1); }
+
+  /* O tilt e o reveal precisam convivir no mesmo elemento. `.tilt-card` acima
+     tem a mesma especificidade de `[data-reveal]` e vem depois no cascade,
+     então sobrescreve o `transform` (tira o translateY da entrada) e o
+     `transition` (sai a animação de `opacity` e o `--reveal-delay`) — o
+     resultado é o card aparecendo de golpe, sem fade e sem stagger.
+     Aqui as duas transformações são somadas e o reveal é reintroduzido. */
+  .tilt-card[data-reveal] {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(calc(var(--lift, 0px) + var(--motion-distance)));
+    transition: opacity var(--duration-slow) var(--ease-out-expo), clip-path var(--duration-slow) var(--ease-out-expo), transform var(--duration-slow) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast) var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .tilt-card[data-reveal].is-visible {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
+  }
+  /* No hover a duração do reveal (600ms) deixaria o tilt lento; o hover
+     assume a transition rápida, que é o que o mouse espera. */
+  .tilt-card[data-reveal]:hover {
+    transition: transform var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast) var(--ease-out-expo);
+    transition-delay: 0ms;
+  }
   /* Spotlight: a borda ilumina só perto do cursor */
   .tilt-card::after {
     content: '';
